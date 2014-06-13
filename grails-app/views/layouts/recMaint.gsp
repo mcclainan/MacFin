@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<%@ page import="tracking.Account" %>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title><g:layoutTitle default="Grails"/></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.png')}" type="image/x-icon">
+		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
+		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		<g:layoutHead/>
+		<g:javascript library="application"/>		
+		<r:layoutResources />
+		<style type="text/css">
+			#maccontent{
+				margin: 1em 14.7em 0 15em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="grailsLogo" role="banner"><a href="${createLink(uri: '/')}">
+			<img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails" style="height: 5em;"/></a>
+			<div class="menu">
+				<ul>
+					<li class="first"><a class="home"
+						href="${createLink(uri: '/')}">Home</a></li>
+					<li><g:link controller="transaction">Tracking</g:link></li>
+					<li><g:link controller="budgetItem">Planning</g:link></li>
+					<li><g:link controller="report">Reports</g:link></li>
+					<li><g:link controller="category">Records Maintenance</g:link></li>
+				</ul>
+			</div>
+		</div>
+		<div id="sideBarLeft">
+			<h2 style="margin-top: 0em">Meta Category</h2>
+			<ul>
+				<li><g:link controller="MetaCategory" action="index">List</g:link></li>
+				<li><g:link controller="MetaCategory" action="create">Create</g:link></li>
+			</ul>
+			<h2 style="margin-top: 0em">Category</h2>
+			<ul>
+				<li><g:link controller="Category" action="index">List</g:link></li>
+				<li><g:link controller="Category" action="create">Create</g:link></li>
+			</ul>
+		</div>
+		<div id="sideBarRight">
+			<h2 style="margin-top: 0em">Current Resources</h2>
+			<ul>
+				<g:each in="${Account.findAllByActive("Y")}" var="accountInstance">
+					<li>
+						${accountInstance.name} <br/><g:formatNumber
+							number="${accountInstance.balance}" type="currency"
+							currencyCode="USD" />
+					</li>
+				</g:each>
+			</ul>
+		</div>
+		<div id="maccontent">
+		<g:layoutBody/>
+		</div>
+		
+		<div class="footer" role="contentinfo">Version <g:meta name="app.version"/></div>
+		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+		<r:layoutResources />
+	</body>
+</html>

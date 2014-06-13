@@ -1,0 +1,24 @@
+.singleTable{
+		float: right;
+    	width: 35em;
+	}
+	.singleForm{
+		float:left;
+		width:29em;
+	}
+	.singleMain{
+		height: 100%
+	}
+	
+	.fieldcontain label, .fieldcontain .property-label {
+    	text-align: left;
+	}
+	
+	.fieldcontain {
+	    margin-top: 0.5em;
+	}
+	
+	
+	.buttons input, .buttons a {
+		margin:0.1;
+	}
