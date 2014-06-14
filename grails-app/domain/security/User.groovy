@@ -11,4 +11,7 @@ class User {
 		password blank:false
 		name blank:false
     }
+	static mapping = {
+		table 'USER_TABLE'
+	}
 }
