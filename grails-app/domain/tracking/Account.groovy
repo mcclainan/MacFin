@@ -9,6 +9,9 @@ class Account {
 	String active = "Y"
 	String cash
 	AssetLiability assetLiability
+	Bank bank
+	
+
 	
 	static hasMany = [transactions: Transaction]
 	static belongsTo = Transaction
@@ -18,8 +21,14 @@ class Account {
 		active size : 1..1, inList : ["Y","N"]
 		cash  size : 1..1, inList : ["Y","N"]
 		assetLiability nullable: true
+		bank nullable:true
     }
 	
+	static namedQueries = {
+		findAllBankNotNull{
+			isNotNull('bank')
+		}
+	}
 	String toString(){
 		"${name}"
 	} 

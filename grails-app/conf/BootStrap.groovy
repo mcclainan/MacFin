@@ -15,6 +15,7 @@ class BootStrap {
 	def assetLiabilityClass
 	def plannedTransaction
 	def category
+	def bank
 	
     def init = { servletContext ->
 		println "Initializing"
@@ -34,6 +35,7 @@ class BootStrap {
 		createCategory()
 		createBudgetItem()
 		createPlannedTransaction()
+		createBank()
 		createAccount()
 		createAssetLiabilityClass()
 		createAssetLiability()
@@ -156,19 +158,22 @@ class BootStrap {
 	def createPlannedTransaction(){
 		
 	}
+	def createBank(){
+		bank = new Bank(bankName:'USAA',dateFormat='MM/dd/yyy',dateColumn:2,descriptionColumn:4,amountColumn:6)
+	}
 	def createAccount(){
 		println "Creating Accounts"
 		
-		account = new Account(name:"NO RESOURCE",balance: 0, cash:"N")
+		account = new Account(name:"NO RESOURCE",balance: 0, cash:"N",bank:bank)
 		account.save()
 		
-		account = new Account(name:"Tony Checking",balance: 1500, cash:"Y")
+		account = new Account(name:"Tony Checking",balance: 1500, cash:"Y",bank:bank)
 		account.save()
 		
-		account = new Account(name:"Kia Checking",balance: 0, cash:"Y")
+		account = new Account(name:"Kia Checking",balance: 0, cash:"Y",bank:bank)
 		account.save()
 		
-		account = new Account(name:"Joint Checking",balance: 0, cash:"Y")
+		account = new Account(name:"Joint Checking",balance: 0, cash:"Y",bank:bank)
 		account.save()
 		
 		account = new Account(name:"CASH",balance: 0, cash:"Y")

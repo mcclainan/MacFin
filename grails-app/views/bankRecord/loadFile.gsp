@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="tracking.BankRecord" %>
+<%@ page import="tracking.Account" %>
 <!doctype html>
 <html>
 <head>
@@ -21,15 +22,23 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:uploadForm action="configureUpload" >
+			<g:uploadForm action="upload" >
 				<fieldset class="form">
 					<table style="width:50%">
 						<tr>
 							<td>
-								File 
+								<g:message code="load.file.file.label"/> 
 							</td>
 							<td>
 								<input name="file" type="file">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<g:message code="load.file.account.label"/> 
+							</td>
+							<td>
+								<g:select id="account" name="account.id" from="${Account.findByBankNotNull()}" optionKey="id" required=""/>
 							</td>
 						</tr>
 					</table>

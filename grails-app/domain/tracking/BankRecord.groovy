@@ -12,6 +12,7 @@ class BankRecord {
 	Double amount
 	Transaction transaction
 	
+	
     static constraints = {
 		account blank:false
 		transactionDate blank:false

@@ -25,7 +25,7 @@
 		<g:message code="transaction.amount.label" default="Amount" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="amount" value="${fieldValue(bean: transactionInstance, field: 'amount')}" required=""/>
+	<g:field type="text" name="amount" value="${fieldValue(bean: transactionInstance, field: 'amount')}" required=""/>
 
 </div>
 
