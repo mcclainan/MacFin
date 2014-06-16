@@ -1,17 +1,17 @@
 package tracking
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import java.text.ParseException
 import java.text.SimpleDateFormat
+
 
 @Transactional(readOnly = true)
 class BankRecordController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def bankRecordService
+	
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond BankRecord.list(params), model:[bankRecordInstanceCount: BankRecord.count()]
@@ -108,10 +108,15 @@ class BankRecordController {
 		}else if(!account.bank){
 			notFound('loadFile','Bank',"${account} account")
 		}
+		
+		flash.errors = [:]
+		flash.errors?.each{
+			println it
+		}
 		def serviceResults = bankRecordService.upload(request,flash,account)
 		
 		if(!flash.errors){
-			flash.message = "${bankRecordsList.size()} Bank Records where added. The file contained ${duplicateBankRecordsList.size()} duplicate records."
+			flash.message = "${serviceResults.bankRecordsList.size()} Bank Records where added. The file contained ${serviceResults.duplicateBankRecordsList.size()} duplicate records."
 			[bankRecordsList:serviceResults.bankRecordsList,duplicateBankRecordsList:serviceResults.duplicateBankRecordsList]
 		}else{
 			redirect action:'loadFile'

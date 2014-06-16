@@ -75,6 +75,13 @@
 					
 				</li>
 				</g:if>
+				<g:if test="${accountInstance?.bank}">
+				<li class="fieldcontain">
+					<span id="transactions-label" class="property-label"><g:message code="account.bank.label" default="Bank" /></span>
+					<span class="property-value" aria-labelledby="bank-label"><g:link controller="bank" action="show" id="${accountInstance.bank.id}">${accountInstance.bank?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${accountInstance?.transactions}">
 				<li class="fieldcontain">

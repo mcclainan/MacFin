@@ -5,7 +5,7 @@
 <head>
 <meta name="layout" content="tracking">
 <g:set var="entityName" value="${message(code: 'bankRecord.label', default: 'BankRecord')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title><g:message code="bankrecord.upload.title"/></title>
 		<style type="text/css">
 			th{
 				text-align: center;
@@ -16,14 +16,14 @@
 			}
 			
 			#primaryContent {
-			    margin: 0em 16em 0 0em;
+			    margin: 0;
 			}
 		</style>
 </head>
 <body>
 	<div id="primaryContentContainer">
 		<div id="primaryContent">
-			<h1>Match Columns</h1>
+			<h1><g:message code="bankrecord.upload.title"/> </h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

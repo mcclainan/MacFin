@@ -25,7 +25,7 @@ class Account {
     }
 	
 	static namedQueries = {
-		findAllBankNotNull{
+		findAllByBankNotNull{
 			isNotNull('bank')
 		}
 	}

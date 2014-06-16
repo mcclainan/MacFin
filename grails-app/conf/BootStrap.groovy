@@ -159,12 +159,14 @@ class BootStrap {
 		
 	}
 	def createBank(){
-		bank = new Bank(bankName:'USAA',dateFormat='MM/dd/yyy',dateColumn:2,descriptionColumn:4,amountColumn:6)
+		println "Creating Bank"
+		bank = new Bank(bankName:'USAA',dateFormat:'MM/dd/yyy',dateColumn:2,descriptionColumn:4,amountColumn:6)
+		bank.save()
 	}
 	def createAccount(){
 		println "Creating Accounts"
 		
-		account = new Account(name:"NO RESOURCE",balance: 0, cash:"N",bank:bank)
+		account = new Account(name:"NO RESOURCE",balance: 0, cash:"N")
 		account.save()
 		
 		account = new Account(name:"Tony Checking",balance: 1500, cash:"Y",bank:bank)

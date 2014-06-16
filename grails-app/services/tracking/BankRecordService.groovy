@@ -3,6 +3,7 @@ package tracking
 import grails.transaction.Transactional
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest
 
 @Transactional
 class BankRecordService {
@@ -11,7 +12,7 @@ class BankRecordService {
 	 * @param flash the object that comes with the call to grails controller 
 	 * @Param account the tracking.Account object
 	 */
-    def upload(Map request,Map flash, Account account) {
+    def upload(DefaultMultipartHttpServletRequest request,Map flash, Account account) {
 		def bank = account.bank
 		List newFile = []
 		request.getFile("file").inputStream.eachLine{
@@ -28,9 +29,10 @@ class BankRecordService {
 		}
 		for(i; i < newFile.size(); i++){
 			List row = newFile.get(i)
-					BankRecord bankRecord = new BankRecord()
+			BankRecord bankRecord = new BankRecord()
 			try {
-				bankRecord.description = row.get(descriptionColumn)
+				
+				bankRecord.description = row.get(bank.descriptionColumn)
 				if(bankRecord.description == ''){
 					throw new Exception()
 				}
@@ -40,7 +42,7 @@ class BankRecordService {
 			}
 			
 			try {
-				bankRecord.transactionDate = new SimpleDateFormat(params.dateFormat).parse(row.get(bank.dateColumn))
+				bankRecord.transactionDate = new SimpleDateFormat(bank.dateFormat).parse(row.get(bank.dateColumn))
 				if(bankRecord.transactionDate.format("MM/dd/yyyy")=="01/01/1970"){
 					throw new Exception()
 				}
