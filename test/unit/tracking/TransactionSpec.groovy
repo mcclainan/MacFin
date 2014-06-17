@@ -8,13 +8,25 @@ import spock.lang.Specification
  */
 @TestFor(Transaction)
 class TransactionSpec extends Specification {
-
-    def setup() {
+	def transaction
+    
+	void "test valid transaction constraints"() {
+		when:"Transaction is valid"
+		then:"Transaction should validate"
+			transaction.validate()
+	}
+	
+	void "test category constraints"() {
+	
+	}
+	
+	def setup() {
+		transaction = new Transaction(category: new category.Category(), 
+			                          name:'Name', 
+									  amount: 100, 
+									  account:new Account())
     }
 
     def cleanup() {
-    }
-
-    void "test something"() {
     }
 }
