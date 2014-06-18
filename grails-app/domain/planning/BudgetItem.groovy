@@ -13,10 +13,21 @@ class BudgetItem {
 	static hasMany = [plannedTransactions: PlannedTransaction, transactions: Transaction]
 	
 	static constraints = {
-		year blank : false, min : 2011, max : 2020
-		month blank : false, min : 1, max : 12
+		year blank:false, min : 2011, max : 2020,
+			validator:{val,obj->
+				if(val<new Date().format('yyyy').toInteger()){
+					return['pastDate']
+				}
+			}
+		month blank:false,min:1,max:12,
+			validator:{val,obj->
+				def date = new Date()
+				if(val<date.format('MM').toInteger() && obj.year<=date.format('yyyy').toInteger()){
+					return['pastDate']
+				}
+			}
 		category unique : ["month", "year"]
-		amount blank : false
+		amount blank : false, min:new Double(0.0)
 		cash inList : ["Y","N"]
 		required blank:true ,  inList : ["Y","N"]
 	}

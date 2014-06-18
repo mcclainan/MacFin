@@ -9,13 +9,13 @@ import spock.lang.Specification
 @TestFor(AssetLiabilityClass)
 class AssetLiabilityClassSpec extends Specification {
 	
-    def setup() {
-		assetLiabilityClass = new AssetLiabilityClass(name: "LOAN", onProceedes : 1, onPayment : -1, onInterest : 1)
-    }
-
-    def cleanup() {
-    }
-
-    void "test something"() {
-    }
+//    def setup() {
+//		assetLiabilityClass = new AssetLiabilityClass(name: "LOAN", onProceedes : 1, onPayment : -1, onInterest : 1)
+//    }
+//
+//    def cleanup() {
+//    }
+//
+//    void "test something"() {
+//    }
 }
