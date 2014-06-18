@@ -12,8 +12,9 @@ class BudgetItemController {
 	def budgetItemService
 
     def index(Integer max) {
-		
-		redirect(action:'view')
+		params.max = Math.min(max ?: 10, 100)
+		respond BudgetItem.list(params), model:[budgetItemInstanceCount: BudgetItem.count()]
+//		redirect(action:'view')
     }
 	
 	def view(Integer max){
@@ -48,20 +49,13 @@ class BudgetItemController {
         }
 
         def saveResults = budgetItemService.create(budgetItemInstance,params.numberOfMonths.toInteger())
-		println ">>>>>>>>>>>>>>${saveResults.class}"
 		if(saveResults.class == BudgetItem.class){
 			budgetItemInstance = saveResults
 			respond budgetItemInstance.errors, view:'create'
 			return
 		}
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'budgetItem.created.message', args: [saveResults.size(),message(code: 'budgetItemInstance.label', default: 'BudgetItem')])
-                redirect (view:'create',model:[budgetItemInstance:budgetItemInstance])
-            }
-            '*' { respond budgetItemInstance, [status: CREATED] }
-        }
+        flash.message = message(code: 'budgetItem.created.message', args: [saveResults.size(),message(code: 'budgetItemInstance.label', default: 'BudgetItem')])
+		redirect(action:'show',params:[id:saveResults.get(0).id])
     }
 
     def edit(BudgetItem budgetItemInstance) {

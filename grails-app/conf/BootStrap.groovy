@@ -1,16 +1,21 @@
 import grails.util.Environment;
+
 import java.text.DecimalFormat
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.ForEach;
+
 import assetLiability.AssetLiability
 import assetLiability.AssetLiabilityClass
 import category.*
 import tracking.*
+import planning.*
 import utilities.Random
 
 class BootStrap {
 	def account
 	def transaction
 	def assetLiability
-	def budgetItedm
+	def budgetItem
 	def metaCategory
 	def assetLiabilityClass
 	def plannedTransaction
@@ -34,7 +39,6 @@ class BootStrap {
 		createMetaCategory()
 		createCategory()
 		createBudgetItem()
-		createPlannedTransaction()
 		createBank()
 		createAccount()
 		createAssetLiabilityClass()
@@ -153,10 +157,33 @@ class BootStrap {
 		
 	}
 	def createBudgetItem(){
-		
+		println "Creating Budget Items"
+		category = Category.findByName('Rent')
+		def year = new Date().format('yyyy').toInteger()
+		def month = new Date().format('MM').toInteger()
+		for(int i=0;i<6;i++){
+			budgetItem = new BudgetItem(year:year,
+										month:month++,
+										amount:800,
+										category:category,
+										required:'Y')
+			budgetItem.save()
+			createPlannedTransactions(budgetItem)
+		}
 	}
-	def createPlannedTransaction(){
-		
+	def createPlannedTransactions(BudgetItem budgetItem){
+		def date = new Date()
+		date.set(year:budgetItem.year,month:budgetItem.month,date:1)
+		plannedTransaction = new PlannedTransaction(plannedTransactionDate:date,
+													amount:budgetItem.amount,
+													rolling:'Y',
+													budgetItem:budgetItem,
+													category:budgetItem.category)
+		plannedTransaction.validate()
+		plannedTransaction.errors?.each{
+			println it
+		}
+		plannedTransaction.save()
 	}
 	def createBank(){
 		println "Creating Bank"
