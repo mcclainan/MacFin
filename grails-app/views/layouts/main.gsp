@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="tracking.Account" %>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -37,10 +38,20 @@
 				</ul>
 			</div>
 		</div>
-		<g:layoutBody/>
-		<div class="footer" role="contentinfo">
-			Version <g:meta name="app.version"/>
+		<div id="sideBarLeft">
+			<h2 style="margin-top: 0em">Current Resources</h2>
+			<ul>
+				<g:each in="${Account.findAllByActiveAndCash('Y','Y')}" var="accountInstance">
+					<li>
+						${accountInstance.name} <br/><g:formatNumber
+							number="${accountInstance.balance}" type="currency"
+							currencyCode="USD" />
+					</li>
+				</g:each>
+			</ul>
 		</div>
+		<g:layoutBody/>
+		<div class="footer" role="contentinfo">Version <g:meta name="app.version"/></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<r:layoutResources />
 	</body>
