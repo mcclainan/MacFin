@@ -23,7 +23,10 @@ class BudgetItemController {
 	}
 
     def show(BudgetItem budgetItemInstance) {
-        respond budgetItemInstance
+		def calendar = Calendar.getInstance()
+		calendar.set(2014,5,1)
+		int startDay = calendar.get(Calendar.DAY_OF_WEEK)-1
+        respond budgetItemInstance, model:[startDay:startDay]
     }
 
     def create() {

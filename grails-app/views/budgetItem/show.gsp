@@ -24,54 +24,27 @@
 				width:100%;
 				min-height: 17em;
 			}
-	/* Calendar Styling */
-	.calendar{
-		width:40em;
-		height: 42em;
-	}
-	.calendarBody{
-		width:40em;
-		height:40em;
-	}
-	.calendarHead{
-		width:40em;
-		height:1.3em;
-	}
-	
-	.calendarRow{
-		width:40em;
-		height:6.5em;
-	}
-	.calendarCell{
-		height: 6.5em;
-    	width: 5.57em;
-		border: .1em;
-		border-style: solid;
-		float:left;
-	}
-	.calendarCellHeader{
-		height: 1.3em;
-    	width: 1.57em;
-		background-color:#66A0BE;
-	}
-	.calendarHeadCell{
-		width:5.5em;
-		height:1.3em;
-		background-color:#006192;
-		color:#FFFFFF;
-		float:left;
-		padding:.1em;
-	}
 	table{
 		border-collapse: separate;
 	}
 	tr > td:last-child, tr > th:last-child {
-	    padding-right: 0em;
-	    padding-top: 0em;
+	    padding: 0em;
 	}
 	tr > td:first-child, tr > th:first-child {
-	    padding-left: 0em;
-	    padding-top: 0em;
+	    padding: 0em;
+	}
+	td{
+		padding:0;
+		height: 5.5em;
+	}
+	th{
+		width:14.28%;
+	}
+	td.calendarHead{
+		height:2em;
+		font-size:1.5em;
+		vertical-align: middle;
+		text-align: center;
 	}
 		</style>
 	</head>
@@ -96,7 +69,7 @@
 					</g:form>
 				</div>
 				<div class="cashFlowCalendarShow">
-					<g:render template="calendar"/>
+					<g:render template="calendar" model="${[budgetItemInstance:budgetItemInstance,startDay:startDay]}"/>
 				</div>
 			</div>
 			

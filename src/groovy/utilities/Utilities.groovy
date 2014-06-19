@@ -11,7 +11,7 @@ class Utilities {
 		firstOfMonth.set(year: year, month: month-1, date:1)
 		def endOfMonth = new Date()
 		endOfMonth.set(year: year, month: month-1, date:days)
-		
+		calendar.get(Calendar.DAY_OF_WEEK)
 		
 		[firstOfMonth:firstOfMonth.clearTime(),endOfMonth:endOfMonth.clearTime()]
 	}

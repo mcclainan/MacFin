@@ -28,6 +28,12 @@ class Account {
 		findAllByBankNotNull{
 			isNotNull('bank')
 		}
+		calcSumByCash{
+			eq('cash','Y')
+			projections{
+				sum('balance')
+			}
+		}
 	}
 	String toString(){
 		"${name}"

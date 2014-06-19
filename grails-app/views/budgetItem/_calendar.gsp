@@ -1,13 +1,13 @@
 <table BORDER=3 CELLSPACING=3 CELLPADDING=3>
 	<tr>
-		<td COLSPAN="7" style="text-align: center;"><B>December 2001</B></td>
+		<td COLSPAN="7"  class="calendarHead"><B>${utilities.Months.values()[budgetItemInstance.month].name} ${budgetItemInstance.year}</B></td>
 	</tr>
-
-	<tr>
-		<td COLSPAN="7" style="text-align: center;"><I>Planned
-				transactions</I></td>
-	</tr>
-
+	
+	<g:if test="${params.controller=='budgetItem' && params.action=='show'}">
+		<tr >
+			<td COLSPAN="7"  class="calendarHead"><I><g:message code="plannedTransaction.label.plural"/> for ${budgetItemInstance.category } </I></td>
+		</tr>
+	</g:if>
 	<tr>
 		<th style="text-align: center;">Sun</th>
 		<th style="text-align: center;">Mon</th>
@@ -17,66 +17,31 @@
 		<th style="text-align: center;">Fri</th>
 		<th style="text-align: center;">Sat</th>
 	</tr>
-
+	<g:set var="dates" value="${1}"/>
+	<g:set var="balance" value="${tracking.Account.calcSumByCash().list().get(0)}"/>
 	<tr>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;">1</td>
+		<g:if test="${startDay}">
+			<g:each in="${1..startDay}">
+				<td style="text-align: left;"></td>
+			</g:each>
+		</g:if>
+		<g:each in="${1..(7-startDay)}">
+			<td style="text-align: left;">
+				<g:if test="${params.controller=='plannedTransaction' && params.action=='cashFlowCalendar'}">
+					${dates++}<br/>+100<br/>-50<br/>Bal ${balance-=50}
+				</g:if>
+				<g:else>
+					$100
+				</g:else>
+			</td>
+		</g:each>
 	</tr>
-
-	<tr>
-		<td style="text-align: left;">2</td>
-		<td style="text-align: left;">3</td>
-		<td style="text-align: left;">4</td>
-		<td style="text-align: left;">5</td>
-		<td style="text-align: left;">6</td>
-		<td style="text-align: left;">7</td>
-		<td style="text-align: left;">8</td>
-	</tr>
-
-	<tr>
-		<td style="text-align: left;">9</td>
-		<td style="text-align: left;">10</td>
-		<td style="text-align: left;">11</td>
-		<td style="text-align: left;">12</td>
-		<td style="text-align: left;">13</td>
-		<td style="text-align: left;">14</td>
-		<td style="text-align: left;">15</td>
-	</tr>
-
-	<tr>
-		<td style="text-align: left;">16</td>
-		<td style="text-align: left;">17</td>
-		<td style="text-align: left;">18</td>
-		<td style="text-align: left;">19</td>
-		<td style="text-align: left;">20</td>
-		<td style="text-align: left;">21</td>
-		<td style="text-align: left;">22</td>
-	</tr>
-
-	<tr>
-		<td style="text-align: left;">23</td>
-		<td style="text-align: left;">24</td>
-		<td style="text-align: left;">25</td>
-		<td style="text-align: left;">26</td>
-		<td style="text-align: left;">27</td>
-		<td style="text-align: left;">28</td>
-		<td style="text-align: left;">29</td>
-	</tr>
-
-	<tr>
-		<td style="text-align: left;">30</td>
-		<td style="text-align: left;">31</td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-		<td style="text-align: left;"></td>
-
-	</tr>
-
+	<g:each in="${1..4}">
+		<tr>
+			<g:each in="${1..7}">
+				<td style="text-align: left;">${dates++}</td>
+			</g:each>
+		</tr>
+	</g:each>
+	
 </table>
