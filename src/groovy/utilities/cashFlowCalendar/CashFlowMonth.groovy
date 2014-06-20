@@ -1,6 +1,7 @@
 package utilities.cashFlowCalendar
 import planning.PlannedTransaction
-
+import planning.BudgetItem
+import utilities.Utilities
 class CashFlowMonth {
 	Integer year
 	Integer month
@@ -30,10 +31,31 @@ class CashFlowMonth {
 			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek)
 		}
 	}
-	Integer calcStartDay(){
-		def calendar = Calendar.getInstance()
-		calendar.set(year,month-1,1)
-		startDay = calendar.get(Calendar.DAY_OF_WEEK)-1
+	
+	public CashFlowMonth(BudgetItem budgetItem){
+		def dates = new Utilities().getBeginningAndEndOfMonth(budgetItem.year,budgetItem.month)
+		def startDate = dates.firstOfMonth
+		def endDate = dates.endOfMonth
+		def startDateDay = 1
+		def endDateDay = endDate.format('dd').toInteger()
+		def numberOfDays = endDateDay - startDateDay + 1
+		this.year = budgetItem.year
+		this.month = budgetItem.month
+		this.startDay = calcStartDay(startDateDay)
+		def daysInFirstWeek = 7-startDay
+		numberOfDays -= daysInFirstWeek
+		Integer numberOfFullWeeks = numberOfDays/7
+		def daysInLastWeek = numberOfDays%7
+		def amountList = PlannedTransaction.findAllByDateRangeAndCategory(startDate,endDate,budgetItem.category).listOrderByPlannedTransactionDate()
+		cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInFirstWeek)
+		startDateDay += daysInFirstWeek
+		for(int i=1;i<numberOfFullWeeks;i++){
+			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,7)
+			startDateDay += 7
+		}
+		if(daysInLastWeek){
+			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInLastWeek)
+		}
 	}
 	
 	Integer calcStartDay(Integer day){

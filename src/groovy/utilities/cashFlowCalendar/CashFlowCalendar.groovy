@@ -1,6 +1,5 @@
 package utilities.cashFlowCalendar
 import java.util.Date;
-
 import utilities.Utilities
 
 class CashFlowCalendar {
@@ -8,9 +7,8 @@ class CashFlowCalendar {
 	List<CashFlowMonth> cashFlowMonthList = []
 	
 	public CashFlowCalendar(Date startDate,Integer numberOfMonths){
-		def year = date.format('yyyy').toInteger()
-		def month = date.format('MM').toInteger()
-		
+		def year = startDate.format('yyyy').toInteger()
+		def month = startDate.format('MM').toInteger()
 		def endDate = Utilities.getEndOfMonth(year,month)
 		def firstMonth = new CashFlowMonth(startDate,endDate)
 		cashFlowMonthList<<firstMonth
@@ -23,10 +21,8 @@ class CashFlowCalendar {
 			def dates = new Utilities().getBeginningAndEndOfMonth(year, month)
 			cashFlowMonthList<<new CashFlowMonth(dates.firstOfMonth,dates.endOfMonth)
 		}
-		if(!forBudgetShow){
-			CashFlowDay currentDay = cashFlowMonthList.get(0).cashFlowWeekList.get(0).cashFlowDayList(0)
-			currentDay.isCurrentDay = true
-			currentDay.calcCurrentTransactionAdjustment(startDate)
-		}
+		CashFlowDay currentDay = cashFlowMonthList.get(0).cashFlowWeekList.get(0).cashFlowDayList(0)
+		currentDay.isCurrentDay = true
+		currentDay.calcCurrentTransactionAdjustment(startDate)
 	}
 }
