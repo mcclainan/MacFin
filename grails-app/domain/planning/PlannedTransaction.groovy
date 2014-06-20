@@ -23,5 +23,38 @@ class PlannedTransaction {
 	String toString(){
 		"Planned Transaction, amount ${amount} on day ${plannedTransactionDate.format('dd')} for ${budgetItem}"
 	}
+	
+	static namedQueries = {
+		findIncomeDailyTotalsByDateRange{startDate,endDate->
+			between("plannedTransactionDate",startDate-1,endDate)
+			category{
+				eq("type","I")
+			}
+			projections{
+				groupProperty("plannedTransactionDate")
+				sum("amount")
+			}
+		}
+		findExpenseDailyTotalsByDateRange{startDate,endDate->
+			between("plannedTransactionDate",startDate-1,endDate)
+			category{
+				eq("type","E")
+			}
+			projections{
+				groupProperty("plannedTransactionDate")
+				sum("amount")
+			}
+		}
+		findAllByDateRangeAndCategory{startDate,endDate,categoryInstance->
+			between("plannedTransactionDate",startDate-1,endDate)
+			category{
+				eq("id",categoryInstance.id)
+			}
+			projections{
+				groupProperty("plannedTransactionDate")
+				sum("amount")
+			}
+		}
+	}
 }
 

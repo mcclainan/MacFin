@@ -1,16 +1,32 @@
 package utilities.cashFlowCalendar
+import java.util.Date;
+
+import utilities.Utilities
 
 class CashFlowCalendar {
-	Integer numberOfMonths
-	Date startDate
+	Boolean forBudgetShow = false
 	List<CashFlowMonth> cashFlowMonthList = []
 	
-	def calcStartDays(){
-		cashFlowMonthList.get(0).calcStartDay(startDate)
-		for(int i=1;i<cashFlowMonthList.size();i++){
-			cashFlowMonthList.get(i).calcStartDay()
+	public CashFlowCalendar(Date startDate,Integer numberOfMonths){
+		def year = date.format('yyyy').toInteger()
+		def month = date.format('MM').toInteger()
+		
+		def endDate = Utilities.getEndOfMonth(year,month)
+		def firstMonth = new CashFlowMonth(startDate,endDate)
+		cashFlowMonthList<<firstMonth
+		for(int i=0;i<numberOfMonths;i++){
+			month++
+			if(month>12){
+				month = 1
+				year++
+			}
+			def dates = new Utilities().getBeginningAndEndOfMonth(year, month)
+			cashFlowMonthList<<new CashFlowMonth(dates.firstOfMonth,dates.endOfMonth)
+		}
+		if(!forBudgetShow){
+			CashFlowDay currentDay = cashFlowMonthList.get(0).cashFlowWeekList.get(0).cashFlowDayList(0)
+			currentDay.isCurrentDay = true
+			currentDay.calcCurrentTransactionAdjustment(startDate)
 		}
 	}
-	
-	
 }
