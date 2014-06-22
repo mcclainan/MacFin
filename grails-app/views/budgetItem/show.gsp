@@ -69,7 +69,9 @@
 					</g:form>
 				</div>
 				<div class="cashFlowCalendarShow">
-					<g:render template="calendar" model="${[budgetItemInstance:budgetItemInstance,startDay:startDay]}"/>
+					<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
+						<g:render template="calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>
+					</g:each>
 				</div>
 			</div>
 			

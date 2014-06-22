@@ -34,6 +34,7 @@ class PlannedTransaction {
 				groupProperty("plannedTransactionDate")
 				sum("amount")
 			}
+			order 'plannedTransactionDate','asc'
 		}
 		findExpenseDailyTotalsByDateRange{startDate,endDate->
 			between("plannedTransactionDate",startDate-1,endDate)
@@ -44,16 +45,20 @@ class PlannedTransaction {
 				groupProperty("plannedTransactionDate")
 				sum("amount")
 			}
+			order 'plannedTransactionDate','asc'
 		}
 		findAllByDateRangeAndCategory{startDate,endDate,categoryInstance->
 			between("plannedTransactionDate",startDate-1,endDate)
-			category{
-				eq("id",categoryInstance.id)
+			and{
+				category{
+					eq("id",categoryInstance.id)
+				}
 			}
 			projections{
 				groupProperty("plannedTransactionDate")
 				sum("amount")
 			}
+			order 'plannedTransactionDate','asc' 
 		}
 	}
 }

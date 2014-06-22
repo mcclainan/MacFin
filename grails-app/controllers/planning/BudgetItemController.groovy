@@ -4,9 +4,10 @@ package planning
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import utilities.cashFlowCalendar.CashFlowCalendar
 
 @Transactional(readOnly = true)
-class BudgetItemController {
+class BudgetItemController {  
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def budgetItemService
@@ -23,10 +24,7 @@ class BudgetItemController {
 	}
 
     def show(BudgetItem budgetItemInstance) {
-		def calendar = Calendar.getInstance()
-		calendar.set(2014,5,1)
-		int startDay = calendar.get(Calendar.DAY_OF_WEEK)-1
-        respond budgetItemInstance, model:[startDay:startDay]
+        respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance)]
     }
 
     def create() {

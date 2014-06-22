@@ -15,20 +15,20 @@ class CashFlowMonth {
 		this.year = startDate.format('yyyy').toInteger()
 		this.month = startDate.format('MM').toInteger()
 		this.startDay = calcStartDay(startDateDay)
-		def incomeList = PlannedTransaction.findIncomeDailyTotalsByDateRange(startDate,endDate).listOrderByPlannedTransactionDate()
-		def expenseList = PlannedTransaction.findExpenseDailyTotalsByDateRange(startDate,endDate).listOrderByPlannedTransactionDate()
+		def incomeList = PlannedTransaction.findIncomeDailyTotalsByDateRange(startDate,endDate).list()
+		def expenseList = PlannedTransaction.findExpenseDailyTotalsByDateRange(startDate,endDate).list()
 		def daysInFirstWeek = 7-startDay
 		numberOfDays -= daysInFirstWeek
 		Integer numberOfFullWeeks = numberOfDays/7
 		def daysInLastWeek = numberOfDays%7 
-		cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek)
+		cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek,false)
 		startDateDay += daysInFirstWeek
-		for(int i=1;i<numberOfFullWeeks;i++){
-			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,7)
+		for(int i=0;i<numberOfFullWeeks;i++){
+			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,7,false)
 			startDateDay += 7
 		}
 		if(daysInLastWeek){
-			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek)
+			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek,true)
 		}
 	}
 	
@@ -46,10 +46,10 @@ class CashFlowMonth {
 		numberOfDays -= daysInFirstWeek
 		Integer numberOfFullWeeks = numberOfDays/7
 		def daysInLastWeek = numberOfDays%7
-		def amountList = PlannedTransaction.findAllByDateRangeAndCategory(startDate,endDate,budgetItem.category).listOrderByPlannedTransactionDate()
+		def amountList = PlannedTransaction.findAllByDateRangeAndCategory(startDate,endDate,budgetItem.category).list()
 		cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInFirstWeek)
 		startDateDay += daysInFirstWeek
-		for(int i=1;i<numberOfFullWeeks;i++){
+		for(int i=0;i<numberOfFullWeeks;i++){
 			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,7)
 			startDateDay += 7
 		}

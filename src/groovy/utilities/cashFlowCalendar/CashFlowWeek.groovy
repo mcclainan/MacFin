@@ -3,18 +3,27 @@ package utilities.cashFlowCalendar
 import planning.PlannedTransaction
 
 class CashFlowWeek {
-	List<CashFlowDay> cashFlowDayList
+	List<CashFlowDay> cashFlowDayList = []
 	
-	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays){
+	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays, Boolean isLastWeek){
+		if(!isLastWeek){
+			for(int i=0;i<(7-numberOfDays);i++){
+				cashFlowDayList<<new CashFlowDay()
+			}
+		}
 		for(int i=0;i<numberOfDays;i++){
 			def cashFlowDay = new CashFlowDay(day:startDate)
-			if(incomeList.get(0).get(0).format('dd') == startDate){
-				cashFlowDay.income = incomeList.get(0).get(1)
-				incomeList.remove(0)
+			if(incomeList){
+				if(incomeList[0][0].format('dd').toInteger() == startDate){
+					cashFlowDay.income = incomeList[0][1]
+							incomeList.remove(0)
+				}
 			}
-			if(expenseList.get(0).get(0).format('dd') == startDate){
-				cashFlowDay.expense = expenseList.get(0).get(1)
-				expenseList.remove(0)
+			if(expenseList){
+				if(expenseList[0][0].format('dd').toInteger() == startDate){
+					cashFlowDay.expense = expenseList[0][1]
+							expenseList.remove(0)
+				}
 			}
 			startDate++
 			cashFlowDayList<<cashFlowDay
@@ -22,11 +31,15 @@ class CashFlowWeek {
 	}
 	public CashFlowWeek(List amountList, Integer startDate, Integer numberOfDays){
 		for(int i=0;i<numberOfDays;i++){
-			def cashFlowDay = new CashFlowDay(day:startDate)
-			if(amountList.get(0).get(0).format('dd') == startDate){
-				cashFlowDay.amount = amountList.get(0).get(1)
-				amountList.remove(0)
+			def cashFlowDay = new CashFlowDay()
+			cashFlowDay.day = startDate
+			if(amountList){
+				if(amountList[0][0].format('dd').toInteger() == startDate){
+					cashFlowDay.amount = amountList[0][1]
+					amountList.remove(0)
+				}
 			}
+			startDate++
 			cashFlowDayList<<cashFlowDay
 		}
 	}
