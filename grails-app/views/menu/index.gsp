@@ -35,6 +35,47 @@
 		text-align: center;
 	}
 	
+	.calendarTable{
+		width:45em;
+		margin: 2em 0 0 10em;
+		border-collapse: separate;
+		border-top-color: black
+	}
+	.calendarTableHeaderDate{
+		border-style : double;
+	}
+	.calendarHead{
+		font-size: 1.3em;
+		text-align: center;
+	}
+	.calendarTableDayHeaders{
+	}
+	.calendarTableDayHeader{
+				padding: 0.2em 1em;
+		    text-align: center;
+		    width: 5em;
+		}
+	.calendarTableWeek{
+		height:8em;
+		border-style: double;
+	}
+	.calendarTableDay{
+		border-style: solid;
+	    border-width: 0.1em;
+	    padding: 0;
+	    text-align: left;
+	}
+	tr > td:last-child,tr > td:first-child  {
+	    padding: 0em;
+	}
+	tr > th:last-child,tr> th:first-child {
+	    padding: 0.2em 1em;
+	    text-align: center;
+	    width: 5em;
+	}
+	.dashBoardHeading{
+		font-size: 2em;
+	}
 </style>
 <g:javascript library="prototype" />
 <script type="text/javascript">
@@ -61,9 +102,9 @@
 <title>Home</title>
 </head>
 <body>
-	<h2>Recent Transactions</h2>
+	<h2 class="dashBoardHeading">Recent Transactions</h2>
 				<table style="width:40em">
-					<tr class="rowH">
+					<tr>
 						<th>Date</th>
 						<th>Category</th>
 						<th>Description</th>
@@ -73,7 +114,7 @@
 					<g:each
 						in="${Transaction.list(max: 5, sort: "transactionDate", order: "desc")}"
 						status="i" var="transactionInstance">
-						<tr class="${(i % 2) == 0 ? 'rowA' : 'rowB'}">
+						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 							<td><g:formatDate
 									date="${transactionInstance.transactionDate}"
@@ -98,7 +139,7 @@
 						</tr>
 					</g:each>
 				</table>
-				<h2>Cash Flow Calendar</h2> <g:link controller="plannedTransaction" action="cashFlowCalendar">(view full calendar)</g:link>
+				<h2  class="dashBoardHeading">Cash Flow Calendar</h2> <g:link controller="plannedTransaction" action="cashFlowCalendar">(view full calendar)</g:link>
 				<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
 					<g:render template="/budgetItem/calendar" model="${[cashFlowMonth:cashFlowMonth] }"/>
 				</g:each>
