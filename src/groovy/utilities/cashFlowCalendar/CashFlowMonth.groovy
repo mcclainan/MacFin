@@ -33,6 +33,7 @@ class CashFlowMonth {
 	}
 	
 	public CashFlowMonth(BudgetItem budgetItem){
+		
 		def dates = new Utilities().getBeginningAndEndOfMonth(budgetItem.year,budgetItem.month)
 		def startDate = dates.firstOfMonth
 		def endDate = dates.endOfMonth

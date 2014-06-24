@@ -32,8 +32,29 @@ class BudgetItem {
 		required blank:true ,  inList : ["Y","N"]
 	}
 	
+	static namedQueries = {
+		getAllByDateAndCategory{categoryId,month,year->
+			if(categoryId){
+				category{
+					eq('id',categoryId.toLong())
+				}
+			}
+			or{
+				and{
+					eq('year',year)
+					ge('month',month)
+				}
+				
+				gt('year',year)
+			}
+			order('year','asc')
+			order('month','asc')
+		}
+	}
+	
 	static mapping = {
 	}
+	
 	
 	String toString(){
 		"${category} budget ${year}/${month}"
