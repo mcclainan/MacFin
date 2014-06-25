@@ -23,7 +23,6 @@
 		<th class="calendarTableDayHeader">Fri</th>
 		<th class="calendarTableDayHeader">Sat</th>
 	</tr>
-	<g:set var="balance" value="${tracking.Account.calcSumByCash().list().get(0)}" />
 	<g:each in="${cashFlowMonth.cashFlowWeekList}" var="cashFlowWeek">
 		<tr class="calendarTableWeek">
 			<g:each in="${cashFlowWeek.cashFlowDayList}" var="cashFlowDay">
@@ -46,21 +45,18 @@
 					<g:if test="${cashFlowDay.amount}">
 						<g:formatNumber number="${cashFlowDay.amount}" format="#,##0.00" /><br/>
 					</g:if>
-					<g:if test="${cashFlowDay.isCurrentDay}">
-						<g:set var="balance" value="${balance+=cashFlowDay.ignoreAmount}"/>
-					</g:if>
-					<g:if test="${params.controller!='budgetItem' && cashFlowDay.day}">
+					<g:if test="${cashFlowDay.balance}">
 						<div style="font-weight: bold;">
-							<g:if test="${balance>0}">
+							<g:if test="${cashFlowDay.balance>0}">
 								<span style="color:green">
 							</g:if>	
-							<g:elseif test="${balance<0}">
+							<g:elseif test="${cashFlowDay.balance<0}">
 								<span style="color:red">
 							</g:elseif>
 							<g:else>
 								<span style="color:black">
 							</g:else>
-								<g:formatNumber number="${balance+=(cashFlowDay.income-cashFlowDay.expense)}" type="currency" currencyCode="USD"/>
+								<g:formatNumber number="${cashFlowDay.balance}" type="currency" currencyCode="USD"/>
 							</span>
 						</div>
 					</g:if> 

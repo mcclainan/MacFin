@@ -4,15 +4,17 @@ import planning.PlannedTransaction
 
 class CashFlowWeek {
 	List<CashFlowDay> cashFlowDayList = []
+	Double balance = 0
 	
-	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays, Boolean isLastWeek){
+	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays, Boolean isLastWeek,Double balance){
 		if(!isLastWeek){
 			for(int i=0;i<(7-numberOfDays);i++){
 				cashFlowDayList<<new CashFlowDay()
 			}
 		}
+		
 		for(int i=0;i<numberOfDays;i++){
-			def cashFlowDay = new CashFlowDay(day:startDate)
+			def cashFlowDay = new CashFlowDay(day:startDate,balance:balance)
 			if(incomeList){
 				if(incomeList[0][0].format('dd').toInteger() == startDate){
 					cashFlowDay.income = incomeList[0][1]
@@ -27,7 +29,9 @@ class CashFlowWeek {
 			}
 			startDate++
 			cashFlowDayList<<cashFlowDay
+			balance = cashFlowDay.calcBalance()
 		}
+		this.balance = balance
 	}
 	public CashFlowWeek(List amountList, Integer startDate, Integer numberOfDays){
 		for(int i=0;i<numberOfDays;i++){

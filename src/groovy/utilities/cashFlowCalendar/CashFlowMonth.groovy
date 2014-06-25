@@ -6,9 +6,10 @@ class CashFlowMonth {
 	Integer year
 	Integer month
 	Integer startDay
+	Double balance
 	List<CashFlowWeek> cashFlowWeekList = []
 	
-	public CashFlowMonth(Date startDate,Date endDate){
+	public CashFlowMonth(Date startDate,Date endDate,Double balance){
 		def startDateDay = startDate.format('dd').toInteger()
 		def endDateDay = endDate.format('dd').toInteger()
 		def numberOfDays = endDateDay - startDateDay + 1
@@ -21,15 +22,22 @@ class CashFlowMonth {
 		numberOfDays -= daysInFirstWeek
 		Integer numberOfFullWeeks = numberOfDays/7
 		def daysInLastWeek = numberOfDays%7 
-		cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek,false)
+		def week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek,false,balance)
+		balance = week.balance
+		cashFlowWeekList <<  week
 		startDateDay += daysInFirstWeek
 		for(int i=0;i<numberOfFullWeeks;i++){
-			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,7,false)
+			week = new CashFlowWeek(incomeList,expenseList,startDateDay,7,false,balance)
+			cashFlowWeekList <<  week
+			balance = week.balance
 			startDateDay += 7
 		}
 		if(daysInLastWeek){
-			cashFlowWeekList <<  new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek,true)
+			week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek,true,balance)
+			balance = week.balance
+			cashFlowWeekList <<  week
 		}
+		this.balance = balance
 	}
 	
 	public CashFlowMonth(BudgetItem budgetItem){

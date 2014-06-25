@@ -103,7 +103,7 @@
 </head>
 <body>
 	<h2 class="dashBoardHeading">Recent Transactions</h2>
-				<table style="width:40em">
+				<table style="margin: 0 3em; width: 59em;">
 					<tr>
 						<th>Date</th>
 						<th>Category</th>

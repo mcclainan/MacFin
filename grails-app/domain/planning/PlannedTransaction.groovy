@@ -26,7 +26,7 @@ class PlannedTransaction {
 	
 	static namedQueries = {
 		findIncomeDailyTotalsByDateRange{startDate,endDate->
-			between("plannedTransactionDate",startDate-1,endDate)
+			between("plannedTransactionDate",startDate,endDate)
 			category{
 				eq("type","I")
 			}
@@ -37,7 +37,7 @@ class PlannedTransaction {
 			order 'plannedTransactionDate','asc'
 		}
 		findExpenseDailyTotalsByDateRange{startDate,endDate->
-			between("plannedTransactionDate",startDate-1,endDate)
+			between("plannedTransactionDate",startDate,endDate)
 			category{
 				eq("type","E")
 			}
