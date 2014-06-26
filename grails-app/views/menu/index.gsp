@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 <meta name="layout" content="home"/>
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'calendar.css')}" type="text/css">
 <style type="text/css">
 	.message{
 		width:76.25em;
@@ -33,45 +34,6 @@
 	#dialogBoxFooter{
 		height: 11%;
 		text-align: center;
-	}
-	
-	.calendarTable{
-		width:45em;
-		margin: 2em 0 0 10em;
-		border-collapse: separate;
-		border-top-color: black
-	}
-	.calendarTableHeaderDate{
-		border-style : double;
-	}
-	.calendarHead{
-		font-size: 1.3em;
-		text-align: center;
-	}
-	.calendarTableDayHeaders{
-	}
-	.calendarTableDayHeader{
-				padding: 0.2em 1em;
-		    text-align: center;
-		    width: 5em;
-		}
-	.calendarTableWeek{
-		height:8em;
-		border-style: double;
-	}
-	.calendarTableDay{
-		border-style: solid;
-	    border-width: 0.1em;
-	    padding: 0;
-	    text-align: left;
-	}
-	tr > td:last-child,tr > td:first-child  {
-	    padding: 0em;
-	}
-	tr > th:last-child,tr> th:first-child {
-	    padding: 0.2em 1em;
-	    text-align: center;
-	    width: 5em;
 	}
 	.dashBoardHeading{
 		font-size: 2em;

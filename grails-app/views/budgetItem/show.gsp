@@ -6,6 +6,7 @@
 		<meta name="layout" content="planning">
 		<g:set var="entityName" value="${message(code: 'budgetItem.label', default: 'BudgetItem')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'calendar.css')}" type="text/css">
 		<style type="text/css">
 			.budgetShow{
 				font-size: 1.1em; 
@@ -24,37 +25,44 @@
 				width:100%;
 				min-height: 17em;
 			}
-	table{
-		border-collapse: separate;
-	}
-	tr > td:last-child, tr > th:last-child {
-	    padding: 0em;
-	}
-	tr > td:first-child, tr > th:first-child {
-	    padding: 0em;
-	}
-	td{
-		padding:0;
-		height: 5.5em;
-	}
-	th{
-		width:14.28%;
-	}
-	td.calendarHead{
-		height:2em;
-		font-size:1.5em;
-		vertical-align: middle;
-		text-align: center;
-	}
+			.calendarTable{
+				margin: 0;
+    			width: 39em
+			}
+			.calendarTableHeaderDate{
+				background: none repeat scroll 0 0 #006699
+			}
+			.calendarTableTitle{
+				background: none repeat scroll 0 0 #059fff;
+			}
+			.calendarTableWeek{
+				height: 4em
+			}
+			.chageBudgetItem{
+				background-color: #efefef;
+			    border: medium none;
+			    box-shadow: 0 0 3px 1px #aaaaaa;
+			    margin: 0.1em 0 0;
+			    overflow: hidden;
+			    padding: 0.3em;
+			    height: 13em;
+			    left: 1.4em;
+			    position: absolute;
+			    top: 11em;
+			    width: 17.9em;
+			    z-index: 1;
+			}
 		</style>
 	</head>
 	<body>
+		
 		<div id="show-budgetItem" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<div class="mainContainer">
+			<div class="mainContainer" style="position:relative;">
+				<div class="chageBudgetItem"></div>
 				<div class="budgetShow">
 					<g:message code="year.label"/>: ${budgetItemInstance.year}<br/><br/>
 					<g:message code="month.label"/>: ${utilities.Months.values()[budgetItemInstance.month].name}<br/><br/>
