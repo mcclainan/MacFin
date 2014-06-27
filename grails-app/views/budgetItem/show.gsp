@@ -57,7 +57,7 @@
 					<g:link action="view"><g:message code="budgetItem.change.message"/></g:link><br/><br/>
 					<g:form url="[resource:budgetItemInstance, action:'delete']" method="DELETE">
 						<fieldset class="buttons">
-							<g:link class="edit" action="edit" resource="${budgetItemInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+							<input type="button" class="edit" value="${message(code:'default.button.edit.label',default:'Edit')}"/>
 							<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 						</fieldset>
 					</g:form>
