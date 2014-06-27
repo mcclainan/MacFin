@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>C:/projects/MacFin/target/work/plugins</location>
+			<location>/home/tony/Documents/projects/MacFin/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
