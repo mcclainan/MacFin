@@ -33,7 +33,12 @@ class CashFlowWeek {
 		}
 		this.balance = balance
 	}
-	public CashFlowWeek(List amountList, Integer startDate, Integer numberOfDays){
+	public CashFlowWeek(List amountList, Integer startDate, Integer numberOfDays,Boolean isLastWeek){
+		if(!isLastWeek){
+			for(int i=0;i<(7-numberOfDays);i++){
+				cashFlowDayList<<new CashFlowDay()
+			}
+		}
 		for(int i=0;i<numberOfDays;i++){
 			def cashFlowDay = new CashFlowDay()
 			cashFlowDay.day = startDate

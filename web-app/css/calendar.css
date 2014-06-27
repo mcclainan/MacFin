@@ -1,0 +1,40 @@
+@CHARSET "ISO-8859-1";
+
+.calendarTable{
+	width:45em;
+	margin: 2em 0 0 10em;
+	border-collapse: separate;
+	border-top-color: black
+}
+.calendarTableHeaderDate{
+	border-style : double;
+}
+.calendarHead{
+	font-size: 1.3em;
+	text-align: center;
+}
+.calendarTableDayHeaders{
+}
+.calendarTableDayHeader{
+			padding: 0.2em 1em;
+	    text-align: center;
+	    width: 5em;
+	}
+.calendarTableWeek{
+	height:8em;
+	border-style: double;
+}
+.calendarTableDay{
+	border-style: solid;
+    border-width: 0.1em;
+    padding: 0;
+    text-align: left;
+}
+tr > td:last-child,tr > td:first-child  {
+    padding: 0em;
+}
+tr > th:last-child,tr> th:first-child {
+    padding: 0.2em 1em;
+    text-align: center;
+    width: 5em;
+}

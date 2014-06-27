@@ -13,6 +13,7 @@
 				margin-left:1.40em;
 				margin-right:1em;
 				width:16em;
+				height:18em;
 				float:left;
 			}
 			.cashFlowCalendarShow{
@@ -25,33 +26,18 @@
 				width:100%;
 				min-height: 17em;
 			}
+			.setOptions{
+				width: 42em;
+				height: 21em;
+				float:left;
+			}
 			.calendarTable{
-				margin: 0;
-    			width: 39em
+				margin:2em 0 0 7em
 			}
-			.calendarTableHeaderDate{
-				background: none repeat scroll 0 0 #006699
+			.calendarTableDay , .calendarTableWeek{
+				height:4em;
 			}
-			.calendarTableTitle{
-				background: none repeat scroll 0 0 #059fff;
-			}
-			.calendarTableWeek{
-				height: 4em
-			}
-			.chageBudgetItem{
-				background-color: #efefef;
-			    border: medium none;
-			    box-shadow: 0 0 3px 1px #aaaaaa;
-			    margin: 0.1em 0 0;
-			    overflow: hidden;
-			    padding: 0.3em;
-			    height: 13em;
-			    left: 1.4em;
-			    position: absolute;
-			    top: 11em;
-			    width: 17.9em;
-			    z-index: 1;
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -76,11 +62,14 @@
 						</fieldset>
 					</g:form>
 				</div>
-				<div class="cashFlowCalendarShow">
-					<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
-						<g:render template="calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>
-					</g:each>
+				<div class="setOptions">
+					<g:render template="plannedTransactionSetOptions"/>
 				</div>
+			</div>
+			<div class="cashFlowCalendarShow">
+				<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
+					<g:render template="calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>
+				</g:each>
 			</div>
 			
 			

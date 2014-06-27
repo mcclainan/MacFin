@@ -56,14 +56,14 @@ class CashFlowMonth {
 		Integer numberOfFullWeeks = numberOfDays/7
 		def daysInLastWeek = numberOfDays%7
 		def amountList = PlannedTransaction.findAllByDateRangeAndCategory(startDate,endDate,budgetItem.category).list()
-		cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInFirstWeek)
+		cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInFirstWeek,false)
 		startDateDay += daysInFirstWeek
 		for(int i=0;i<numberOfFullWeeks;i++){
-			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,7)
+			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,7,false)
 			startDateDay += 7
 		}
 		if(daysInLastWeek){
-			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInLastWeek)
+			cashFlowWeekList <<  new CashFlowWeek(amountList,startDateDay,daysInLastWeek,true)
 		}
 	}
 	
