@@ -28,7 +28,7 @@
 			<g:each in="${cashFlowWeek.cashFlowDayList}" var="cashFlowDay">
 				<td class="calendarTableDay"">
 					<g:if test="${cashFlowDay.day}">
-						<span style="color:blue; background-color: #66a0be;">
+						<span style="color:white; background-color: #66a0be;">
 							${cashFlowDay.day}<br/>
 						</span>
 					</g:if>
