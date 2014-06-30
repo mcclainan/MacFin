@@ -6,9 +6,13 @@ class CashFlowWeek {
 	List<CashFlowDay> cashFlowDayList = []
 	Double balance = 0
 	
-	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays, Boolean isLastWeek,Double balance){
+	public CashFlowWeek(List incomeList, List expenseList, Integer startDate, Integer numberOfDays, Boolean isLastWeek,Double balance, Integer firstIsLastOffset){
 		if(!isLastWeek){
 			for(int i=0;i<(7-numberOfDays);i++){
+				cashFlowDayList<<new CashFlowDay()
+			}
+		}else if(firstIsLastOffset){
+			for(int i=0;i<firstIsLastOffset;i++){
 				cashFlowDayList<<new CashFlowDay()
 			}
 		}

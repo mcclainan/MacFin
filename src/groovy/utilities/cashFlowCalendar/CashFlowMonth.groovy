@@ -19,21 +19,29 @@ class CashFlowMonth {
 		def incomeList = PlannedTransaction.findIncomeDailyTotalsByDateRange(startDate,endDate).list()
 		def expenseList = PlannedTransaction.findExpenseDailyTotalsByDateRange(startDate,endDate).list()
 		def daysInFirstWeek = 7-startDay
+		println "daysInFirstWeek ${daysInFirstWeek}"
+		Boolean firstIsLast = false
+		def offset = null
+		if(numberOfDays<=7){
+			daysInFirstWeek=numberOfDays
+			offset = startDay
+			firstIsLast=true
+		}
 		numberOfDays -= daysInFirstWeek
 		Integer numberOfFullWeeks = numberOfDays/7
 		def daysInLastWeek = numberOfDays%7 
-		def week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek,false,balance)
+		def week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInFirstWeek,firstIsLast,balance,offset)
 		balance = week.balance
 		cashFlowWeekList <<  week
 		startDateDay += daysInFirstWeek
 		for(int i=0;i<numberOfFullWeeks;i++){
-			week = new CashFlowWeek(incomeList,expenseList,startDateDay,7,false,balance)
+			week = new CashFlowWeek(incomeList,expenseList,startDateDay,7,false,balance,offset)
 			cashFlowWeekList <<  week
 			balance = week.balance
 			startDateDay += 7
 		}
 		if(daysInLastWeek){
-			week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek,true,balance)
+			week = new CashFlowWeek(incomeList,expenseList,startDateDay,daysInLastWeek,true,balance,offset)
 			balance = week.balance
 			cashFlowWeekList <<  week
 		}
