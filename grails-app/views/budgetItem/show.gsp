@@ -85,19 +85,19 @@
 				</div>
 				<g:form controller="plannedTransaction" action="save">
 					<div class="editBudgetItem" id="editBudgetItem">
-						<g:render template="plannedTransactionSetControlls"/>
+						<g:render template="/budgetItem/plannedTransactionSetControlls"/>
 					</div>
 					<div class="setOptions">
-						<g:render template="plannedTransactionSetOptions"/>
+						<g:render template="/budgetItem/plannedTransactionSetOptions"/>
 					</div>
 				</g:form>
 				<div class="changeBudgetItem" id="changeBudgetItem">
-					<g:render template="selectBudgetItem"/>
+					<g:render template="/budgetItem/selectBudgetItem"/>
 				</div>
 			</div>
 			<div class="cashFlowCalendarShow">
 				<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
-					<g:render template="calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>
+					<g:render template="/budgetItem/calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>
 				</g:each>
 			</div>
 			

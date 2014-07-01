@@ -7,7 +7,7 @@ class PlannedTransactionService {
 
 	Date currentDate 
    
-	def createSet(PlannedTransactionCommand cmd) {
+	def create(PlannedTransactionCommand cmd) {
 /*Create Local Variables*/
 		//Retrieve initial budget item
 		BudgetItem budgetItem = cmd.budgetItem
@@ -49,7 +49,7 @@ class PlannedTransactionService {
 		currentDate = cmd.startDate
 		
 		if(cmd.createMode == "single"){
-			PlannedTransaction plannedTransaction = new PlannedTransaction(plannedTransactionDate:currentDate.clearTime(),category:categoryInstance, budgetItem:budgetItem, amount:params.amount)
+			PlannedTransaction plannedTransaction = new PlannedTransaction(plannedTransactionDate:currentDate.clearTime(),category:categoryInstance, budgetItem:budgetItem, amount:cmd.amount)
 			plannedTransaction.save(flush:true)
 			budgetItem.calculateAmount()
 			messages."message${messageIterator++}" = "1 planned transaction created for ${budgetItem}"

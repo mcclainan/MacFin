@@ -26,15 +26,25 @@ class PlannedTransactionController {
 
     @Transactional
     def save(PlannedTransactionCommand cmd) {
-        if(cmd.hasErrors()){
-			render(view:'budgetItem/show',model:[budgetItemInstance:cmd.budgetItem,
-												 plannedTransactionCommmand:cmd,
+        params.each{
+			println it
+		}
+		if(cmd.hasErrors()){
+			cmd.errors.each{
+				println it
+			}
+			render view:'/budgetItem/show',model:[budgetItemInstance:cmd.budgetItem,
 												 cashFlowCalendar:new CashFlowCalendar(cmd.budgetItem),
-												 budgetItemInstanceList:budgetItemInstanceList,
-												 budgetItemInstanceCount:budgetItemInstanceList.getTotalCount()])
+												 plannedTransactionCommand:cmd]
 			return
 		}
-		redirect(contrller:'budgetItem',action:'show',id:cmd.budgetItem.id)
+		flash.messages = plannedTransactionService.create(cmd)
+		request.withFormat {
+			form multipartForm {
+				redirect controller:'budgetItem',action:"show", method:"GET", id:params.budgetItemId
+			}
+			'*'{ render status: OK }
+		}
     }
 
     def edit(PlannedTransaction plannedTransactionInstance) {

@@ -1,4 +1,4 @@
-<g:hiddenField name="id" value="${budgetItemInstance?.id}"/>
+<g:hiddenField name="budgetItemId" value="${budgetItemInstance?.id}"/>
 Create Mode: 
 <g:radio name="createMode" value="set" checked="true" onchange="createModeMessage()"/> Set &nbsp;&nbsp;
 <g:radio name="createMode" value="single" onchange="createModeMessage()"/> Single<br/>

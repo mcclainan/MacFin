@@ -19,7 +19,6 @@ class CashFlowMonth {
 		def incomeList = PlannedTransaction.findIncomeDailyTotalsByDateRange(startDate,endDate).list()
 		def expenseList = PlannedTransaction.findExpenseDailyTotalsByDateRange(startDate,endDate).list()
 		def daysInFirstWeek = 7-startDay
-		println "daysInFirstWeek ${daysInFirstWeek}"
 		Boolean firstIsLast = false
 		def offset = null
 		if(numberOfDays<=7){
