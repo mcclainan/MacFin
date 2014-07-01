@@ -32,13 +32,33 @@
 				float:left;
 			}
 			.calendarTable{
-				margin:2em 0 0 7em
+				margin:4em 0 0 7em
 			}
 			.calendarTableDay , .calendarTableWeek{
 				height:4em;
 			}
-			
+			.editBudgetItem,.changeBudgetItem{
+				background-color: #efefef;
+				border: medium none;
+				box-shadow: 0 0 3px 1px #aaaaaa;
+				margin: 0.1em 0 0;
+				overflow: hidden;
+				padding: 0.3em;
+				visibility:hidden;
+				height: 13.5em;
+				width:21em;
+				position:absolute;
+				top:10em;
+				left:1.4em;
+				z-index: 1;
+				padding:.5em;
+			}
 		</style>
+		<g:javascript>
+			function toggleElementVisibility(element,visibility){
+				document.getElementById(element).style.visibility = visibility;
+			}
+		</g:javascript>
 	</head>
 	<body>
 		
@@ -48,22 +68,31 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<div class="mainContainer" style="position:relative;">
-				<div class="chageBudgetItem"></div>
 				<div class="budgetShow">
-					<g:message code="year.label"/>: ${budgetItemInstance.year}<br/><br/>
-					<g:message code="month.label"/>: ${utilities.Months.values()[budgetItemInstance.month].name}<br/><br/>
-					<g:message code="category.label"/>: ${budgetItemInstance.category}<br/><br/>
-					<g:message code="amount.label"/>: <g:formatNumber number="${budgetItemInstance.amount}" type="currency" currencyCode="USD" /> <br/><br/>
-					<g:link action="view"><g:message code="budgetItem.change.message"/></g:link><br/><br/>
-					<g:form url="[resource:budgetItemInstance, action:'delete']" method="DELETE">
+					<g:message code="year.label"/>: ${budgetItemInstance?.year}<br/><br/>
+					<g:message code="month.label"/>: ${utilities.Months.values()[budgetItemInstance?.month-1].name}<br/><br/>
+					<g:message code="category.label"/>: ${budgetItemInstance?.category}<br/><br/>
+					<g:message code="amount.label"/>: <g:formatNumber number="${budgetItemInstance?.amount}" type="currency" currencyCode="USD" /> <br/><br/>
+					<a onclick="toggleElementVisibility('changeBudgetItem','visible')"><g:message code="budgetItem.change.message"/></a><br/><br/>
+					<g:form action="delete">
 						<fieldset class="buttons">
-							<input type="button" class="edit" value="${message(code:'default.button.edit.label',default:'Edit')}"/>
-							<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+							<input type="button" class="edit" 
+								value="${message(code:'default.button.edit.label',default:'Edit')}" 
+								onclick="toggleElementVisibility('editBudgetItem','visible')"/>
+							<g:submitButton name="delete" class="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 						</fieldset>
 					</g:form>
 				</div>
-				<div class="setOptions">
-					<g:render template="plannedTransactionSetOptions"/>
+				<g:form controller="plannedTransaction" action="save">
+					<div class="editBudgetItem" id="editBudgetItem">
+						<g:render template="plannedTransactionSetControlls"/>
+					</div>
+					<div class="setOptions">
+						<g:render template="plannedTransactionSetOptions"/>
+					</div>
+				</g:form>
+				<div class="changeBudgetItem" id="changeBudgetItem">
+					<g:render template="selectBudgetItem"/>
 				</div>
 			</div>
 			<div class="cashFlowCalendarShow">

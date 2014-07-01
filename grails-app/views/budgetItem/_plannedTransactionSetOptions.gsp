@@ -9,7 +9,7 @@
 				<td><g:radio name = "amountOption" value="addAmount" onchange = "displayMessage('Specify an Amount in the amount field',this.id)"/> Add to get budget amount</td>
 			</tr>
 			<tr>
-				<td>Amount <g:field name = "amount" id = "amount" type="text" size = "10" /> </td>
+				<td>Amount <g:field name = "amount" id = "amount" type="text" size = "10" value="${plannedTransactionCommand?.amount }"/> </td>
 			</tr>
 		</table>
 	</div>
@@ -32,21 +32,19 @@
 		</table>
 	</div>
 </div>
-<div style = "width: 37em; height:10em ;margin : 0 0 0 5em;  border: outset; border-width: 5px; padding:5px;">
-							<h5>Message Area</h5>
-							<div id="messageBox" style="width: 100%; height: 85%; margin-top: 10px; font-size: 14px; overflow: scroll">
-								<g:if test="${flash.message}">
-									<div class="message" role="status">${flash.message}</div>
-								</g:if>
-								<g:each in = "${flash.messages}" var = "message">
-									<div class="message" role="status">${message.value}</div>
-								</g:each>
-								<g:if test="${flash.errors}">
-									<ul class="errors" role="alert">
-										<g:each in="${flash.errors}" var="error">
-											<li>${error.value}</li>
-										</g:each>
-									</ul>	
-								</g:if>
-							</div>						
-						</div>
+<div style = "width: 37em; height:16.3em ;margin : 0 0 0 5em;  border: outset; border-width: 5px; padding:5px;">
+	<h5>Message Area</h5>
+	<div id="messageBox" style="width: 100%; height: 85%; margin-top: 10px; font-size: 14px; overflow: scroll">
+		<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+		</g:if>
+		<g:each in = "${flash.messages}" var = "message">
+			<div class="message" role="status">${message.value}</div>
+		</g:each>
+		<g:hasErrors bean="${plannedTransactionCommand}">
+			<g:eachError bean="${plannedTransactionCommand}">
+				<g:message error="${it}"/>									
+			</g:eachError>
+		</g:hasErrors>
+	</div>						
+</div>

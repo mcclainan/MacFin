@@ -25,9 +25,6 @@ class BudgetItemController {
 
     def show(BudgetItem budgetItemInstance) {
 		def budgetItemInstanceList = BudgetItem.getAllByDateAndCategory(budgetItemInstance.category.id,budgetItemInstance.month,budgetItemInstance.year).list([max: 1, offset: 1])
-		budgetItemInstanceList.each{
-			println it
-		}
         respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance),
 										   budgetItemInstanceList:budgetItemInstanceList,
 										   budgetItemInstanceCount:budgetItemInstanceList.getTotalCount()]
