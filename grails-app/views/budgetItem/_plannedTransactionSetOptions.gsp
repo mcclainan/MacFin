@@ -38,13 +38,15 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
-		<g:each in = "${flash.messages}" var = "message">
-			<div class="message" role="status">${message.value}</div>
-		</g:each>
+			<g:each in = "${flash.messages}" var = "message">
+				<div class="message" role="status">${message.value}</div>
+			</g:each>
 		<g:hasErrors bean="${plannedTransactionCommand}">
-			<g:eachError bean="${plannedTransactionCommand}">
-				<g:message error="${it}"/>									
-			</g:eachError>
+			<ul class="errors" role="alert">
+				<g:eachError bean="${plannedTransactionCommand}">
+					<g:message error="${it}"/><br/>									
+				</g:eachError>
+			</ul>
 		</g:hasErrors>
 	</div>						
 </div>

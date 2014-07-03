@@ -46,7 +46,7 @@ class PlannedTransactionCommand {
 			}
 		}
 		frequencyOption nullable:true, validator:{val,obj->
-			if(obj.createMode == "single" && !val){
+			if(obj.createMode != "single" && !val){
 				return['required']
 			}
 		}

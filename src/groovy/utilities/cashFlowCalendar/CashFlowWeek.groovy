@@ -44,6 +44,9 @@ class CashFlowWeek {
 			}
 		}
 		for(int i=0;i<numberOfDays;i++){
+			amountList.each{
+				println it
+			}
 			def cashFlowDay = new CashFlowDay()
 			cashFlowDay.day = startDate
 			if(amountList){

@@ -24,7 +24,12 @@ class BudgetItemController {
 	}
 
     def show(BudgetItem budgetItemInstance) {
-        respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance)]
+		def startDate = new Date(month:budgetItemInstance.month-1)
+		if((budgetItemInstance.month-1)!=new Date().getAt(Calendar.MONTH)){
+			startDate.set(date:1)
+		}
+		
+        respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance),startDate:startDate]
     }
 
     def create() {

@@ -173,8 +173,8 @@ class BootStrap {
 	}
 	def createPlannedTransactions(BudgetItem budgetItem){
 		def date = new Date()
-		date.set(year:budgetItem.year,month:budgetItem.month,date:1)
-		plannedTransaction = new PlannedTransaction(plannedTransactionDate:date,
+		date.set(year:budgetItem.year,month:(budgetItem.month-1),date:1)
+		plannedTransaction = new PlannedTransaction(plannedTransactionDate:date.clearTime(),
 													amount:budgetItem.amount,
 													rolling:'Y',
 													budgetItem:budgetItem,

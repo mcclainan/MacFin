@@ -48,7 +48,7 @@ class PlannedTransaction {
 			order 'plannedTransactionDate','asc'
 		}
 		findAllByDateRangeAndCategory{startDate,endDate,categoryInstance->
-			between("plannedTransactionDate",startDate-1,endDate)
+			between("plannedTransactionDate",startDate,endDate)
 			and{
 				category{
 					eq("id",categoryInstance.id)

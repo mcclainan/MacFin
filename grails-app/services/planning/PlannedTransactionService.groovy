@@ -35,7 +35,7 @@ class PlannedTransactionService {
 		//If the user chooses to replace current set the delete all planned transactions in the date range
 		if(cmd.replaceCurrentSet){
 			List currentSet = PlannedTransaction.withCriteria {
-				between("plannedTransactionDate",cmd.startDate-1,cmd.endDate+1)
+				between("plannedTransactionDate",cmd.startDate,cmd.endDate)
 				category{
 					eq("id",categoryInstance.id)
 				}
@@ -74,7 +74,13 @@ class PlannedTransactionService {
 													month:month,
 													category:cmd.budgetItem.category,
 													cash:cmd.budgetItem.cash,
-													required:cmd.budgetItem.required)
+													required:cmd.budgetItem.required,
+													amount:cmd.budgetItem.amount)
+						if(!budgetItem.validate()){
+							budgetItem.errors.each{
+								println it
+							}
+						}
 						budgetItem.save()
 					}
 				}
@@ -82,24 +88,26 @@ class PlannedTransactionService {
 				PlannedTransaction plannedTransaction = new PlannedTransaction(plannedTransactionDate:currentDate.clearTime(),
 																			   category:categoryInstance, 
 																			   budgetItem:budgetItem,
-																			   rolling:budgetItem.required)
+																			   rolling:budgetItem.required,
+																			   amount:cmd.amount)
 				plannedTransaction.save()
 				
 				plannedTransactions << plannedTransaction
 				
 				getNextDate(cmd.frequencyOption)
-				
-				if(budgetItem.year != currentDate.format("yyyy").toInteger() || budgetItem.month != currentDate.format("MM").toInteger()){
+				Boolean isNewBudgetItem = budgetItem.year != currentDate.format("yyyy").toInteger() || budgetItem.month != currentDate.format("MM").toInteger()
+				Boolean isLastIteration = currentDate > cmd.endDate
+				if(isNewBudgetItem || isLastIteration){
 					messages."message${messageIterator++}" = "${plannedTransactions.size()} planned transaction created for ${budgetItem}"
 					
 					if(cmd.amountOption == "deriveAmount"){
 						amount = budgetItem.amount/plannedTransactions.size()
+						plannedTransactions.each{
+							it.amount = amount
+									it.save()
+						}
 					}
 					
-					plannedTransactions.each{
-						it.amount = amount
-						it.save()
-					}
 					
 					budgetItem.calculateAmount()
 					plannedTransactions = []
