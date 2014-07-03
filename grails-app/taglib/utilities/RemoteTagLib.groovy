@@ -1,5 +1,9 @@
 package utilities
 
+/**
+ * @author tony
+ *
+ */
 class RemoteTagLib {
     static defaultEncodeAs = 'text'
 	static namespace = "Remote"
@@ -21,7 +25,7 @@ class RemoteTagLib {
 	}
 	
 	/**
-	 * Creates a link that triggers an Ajax call formatted as a link
+	 * Creates a link that triggers an Ajax call formatted as a javascript call
 	 * @attr action REQUIRED the action to be called
 	 * @attr updateDiv REQUIRED the div tag that will be updated
 	 * @attr id REQUIRED 
@@ -33,6 +37,22 @@ class RemoteTagLib {
 		def id = attrs.id
 		
 		out << "new Ajax.Updater(${updateDiv},'/${grails.util.Metadata.current.getApplicationName()}/${controller}/${action}/${id}',{asynchronous:true,evalScripts:true});"
+	}
+	
+	
+	/**
+	 * Creates a submit button that triggers an Ajax call
+	 * @attr action REQUIRED the action to be called
+	 * @attr updateDiv REQUIRED the div tag that will be updated
+	 * @attr controller OPTIONAL the controller where the call will be triggered (defaults to current controller)
+	 * @attr value OPTIONAL the value of the button tag (defaults to action name)
+	 */
+	def submitButton = {attrs->
+		def controller = attrs.controller?:controllerName
+		def action = attrs.action
+		def updateDiv = attrs.updateDiv
+		def value = attrs.value?:action
+		out << "<input type=\"button\" value=\"${value}\" onclick=\"new Ajax.Updater('${updateDiv}','/MacFin/${controller}/${action}',{asynchronous:true,evalScripts:true,parameters:Form.serialize(this.form)});return false\">"
 	}
 	
 }

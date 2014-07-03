@@ -5,6 +5,7 @@ package planning
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import utilities.cashFlowCalendar.CashFlowCalendar
+import category.Category
 
 @Transactional(readOnly = true)
 class BudgetItemController {  
@@ -25,6 +26,7 @@ class BudgetItemController {
 
     def show(BudgetItem budgetItemInstance) {
 		def startDate = new Date(month:budgetItemInstance.month-1)
+		budgetItemInstance.calculateAmount()
 		if((budgetItemInstance.month-1)!=new Date().getAt(Calendar.MONTH)){
 			startDate.set(date:1)
 		}
@@ -109,6 +111,19 @@ class BudgetItemController {
             '*'{ render status: NO_CONTENT }
         }
     }
+	
+	def change(){
+		def budgetItemInstance = BudgetItem.findWhere(category:Category.get(params.category.id),month:params.month.toInteger(),year:params.year.toInteger())
+		def id
+		if(budgetItemInstance){
+			id = budgetItemInstance.id
+		}else{
+			flash.message = "No Budget Item found for ${Category.get(params.category.id)} for ${params.month}/${params.year}"
+			id = params.id
+		}
+		
+		redirect(action:'show', id:id)
+	}
 
     protected void notFound() {
         request.withFormat {

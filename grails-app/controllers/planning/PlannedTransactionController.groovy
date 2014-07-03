@@ -92,6 +92,34 @@ class PlannedTransactionController {
             '*'{ render status: NO_CONTENT }
         }
     }
+	
+	def cashFlowCalendar(){
+		[cashFlowCalendar:new CashFlowCalendar(new Date().clearTime(),
+		 params.numberOfMonths?.toInteger()?:2),
+	     numberOfMonths:params.numberOfMonths?:2]
+	}
+	
+	def remoteList(){
+		def dateElements = params.id.split(",")
+		def date = new Date(date:dateElements[0].toInteger(),month:dateElements[1].toInteger()-1)
+		date.set(year:dateElements[2].toInteger())
+		def plannedTransactionInstanceList = PlannedTransaction.findAllByPlannedTransactionDate(date.clearTime())
+		flash.refresh = flash.refresh?:false
+		
+		render(template:"remoteList", model:[plannedTransactionInstanceList:plannedTransactionInstanceList])
+	}
+	
+	def remoteEdit(PlannedTransaction plannedTransactionInstance){
+		render(template:'remoteEdit',model:[plannedTransactionInstance:plannedTransactionInstance])
+	}
+	def remoteUpdate(PlannedTransaction plannedTransactionInstance){
+
+		if (plannedTransactionInstance.hasErrors()) {
+			render(template:'remoteEdit',model:[plannedTransactionInstance:plannedTransactionInstance])
+			return
+		}
+		
+	}
 
     protected void notFound() {
         request.withFormat {

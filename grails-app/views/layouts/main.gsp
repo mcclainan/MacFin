@@ -23,8 +23,21 @@
 				margin: 1em 14.7em 0 15em;
 			}
 		</style>
+		<script type="text/javascript">
+			function toggleDialogBoxVisibility(on,refresh){
+				if(on=="on"){
+					document.getElementById("dialogBox").style.visibility = "visible"
+				}else{
+					document.getElementById("dialogBox").style.visibility = "hidden"
+				}
+				if(refresh=='true'){
+					window.location.reload()
+				}	
+			}
+		</script>
 	</head>
 	<body>
+		<div id="dialogBox"></div>
 		<div id="grailsLogo" role="banner"><a href="${createLink(uri: '/')}">
 			<img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails" style="height: 5em;"/></a>
 			<div class="menu">

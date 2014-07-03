@@ -1,4 +1,5 @@
-<g:form action="search">
+<g:form action="change">
+	<g:hiddenField name="id" value="${budgetItemInstance.id}"/>
 	<div class="fieldcontain ${hasErrors(bean: budgetItemInstance, field: 'year', 'error')} required">
 		<label for="year">
 			<g:message code="budgetItem.year.label" default="Year" />
@@ -24,8 +25,9 @@
 		</label>
 		<g:select id="category" name="category.id" from="${category.Category.list()}" optionKey="id" required="" value="${budgetItemInstance?.category?.id}" class="many-to-one"/>
 	</div>
+	<br/>
 	<fieldset class="buttons">
-		<g:submitButton name="create" class="search" value="Create Set" />
+		<g:submitButton name="Change" />
 		<input type="button"  
 					value="Cancel" 
 					onclick="toggleElementVisibility('changeBudgetItem','hidden')"/>
