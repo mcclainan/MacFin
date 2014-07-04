@@ -113,12 +113,20 @@ class PlannedTransactionController {
 		render(template:'remoteEdit',model:[plannedTransactionInstance:plannedTransactionInstance])
 	}
 	def remoteUpdate(PlannedTransaction plannedTransactionInstance){
-
 		if (plannedTransactionInstance.hasErrors()) {
 			render(template:'remoteEdit',model:[plannedTransactionInstance:plannedTransactionInstance])
 			return
 		}
-		
+		plannedTransactionService.edit(plannedTransactionInstance)
+		def plannedTransactionInstanceList = PlannedTransaction.findAllByPlannedTransactionDate(plannedTransactionInstance.plannedTransactionDate.clearTime())
+		flash.refresh = true
+		render(template:"remoteList", model:[plannedTransactionInstanceList:plannedTransactionInstanceList])
+	}
+	def remoteDelete(PlannedTransaction plannedTransactionInstance){
+		plannedTransactionService.delete(plannedTransactionInstance)
+		def plannedTransactionInstanceList = PlannedTransaction.findAllByPlannedTransactionDate(plannedTransactionInstance.plannedTransactionDate.clearTime())
+		flash.refresh = true
+		render(template:"remoteList", model:[plannedTransactionInstanceList:plannedTransactionInstanceList])
 	}
 
     protected void notFound() {

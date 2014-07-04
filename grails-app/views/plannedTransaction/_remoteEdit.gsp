@@ -4,7 +4,7 @@
 		Edit Planned Transaction
 	</h3>
 </div>
-<div id="dialogBoxBody" style="height:auto; overflow: hidden;">
+<div id="dialogBoxBody">
 	<g:form controller="plannedTransaction">
 		<g:hasErrors bean="${plannedTransactionInstance}">
 			<ul class="errors" role="alert">

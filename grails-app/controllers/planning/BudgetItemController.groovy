@@ -31,7 +31,7 @@ class BudgetItemController {
 			startDate.set(date:1)
 		}
 		
-        respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance),startDate:startDate]
+        respond budgetItemInstance, model:[cashFlowCalendar:new CashFlowCalendar(budgetItemInstance),startDate:startDate,visibility:'off']
     }
 
     def create() {

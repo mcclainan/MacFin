@@ -157,19 +157,34 @@ class PlannedTransactionService {
 		[startDate:firstOfTheMonth.clearTime(),endDate:endOfTheMonth.clearTime()]
 	}
 	
-	def editAmount(PlannedTransaction plannedTransaction, Map params){
-		def errors = [:]
-		def amount
-		try{
-			amount = params.amount.toDouble()
-			if(amount < 0) throw new NumberFormatException()
-			plannedTransaction.amount = amount
-			plannedTransaction.budgetItem.calculateAmount()
-		}catch(Exception ex){
-			errors.inValidAmount = "Invalid Amount"
+	def edit(PlannedTransaction plannedTransaction){
+		def budgetItem = plannedTransaction.budgetItem
+		def month = plannedTransaction.plannedTransactionDate.getAt(Calendar.MONTH)+1
+		def year = plannedTransaction.plannedTransactionDate.getAt(Calendar.YEAR)
+		def matchBudgetMonth = month == budgetItem.month
+		def matchBudgetYear = year == budgetItem.year
+		
+		if(!matchBudgetMonth || !matchBudgetYear){
+			def newBudgetItem
+			newBudgetItem = BudgetItem.findWhere(year:year,month:month,category:budgetItem.category)
+			if(!newBudgetItem){
+				newBudgetItem = new BudgetItem(year:year,month:month,category:budgetItem.category,required:budgetItem.required)
+				newBudgetItem.save()
+			}
+			budgetItem.removeFromPlannedTransactions(plannedTransaction)
+			budgetItem.save()
+			plannedTransaction.budgetItem = newBudgetItem
 		}
 		
-		[errors:errors]
+		plannedTransaction.budgetItem.calculateAmount()
+		plannedTransaction.save(flush:true)
+	}
+	
+	def delete(PlannedTransaction plannedTransaction){
+		def budgetItem = plannedTransaction.budgetItem
+		budgetItem.removeFromPlannedTransactions(plannedTransaction)
+		plannedTransaction.delete flush:true
+		budgetItem.calculateAmount()
 	}
 	
 	def rollPlannedTransactions(){
