@@ -12,7 +12,7 @@ class Bank {
 	Integer creditColumn
 	Integer debitColumn
 	
-	static hasMany = [Account accounts]
+	static hasMany = [accounts:Account]
 	
     static constraints = {
 		active size : 1..1, inList : ["Y","N"]

@@ -157,7 +157,7 @@
 					<g:render template="reconTransactionList"/>
 				</div>
 				
-				<div style = "width:30em; height: 400px; overflow: scroll; float:right; margin-right:1%;">
+				<div style = "width:35em; height: 400px; overflow: scroll; float:right; margin-right:1%;">
 					<h3>Bank Records</h3>
 					<table>
 						<thead>

@@ -1,10 +1,10 @@
 package planning.view
-
+import planning.BudgetItem
 /**
  * @author tony
  * This class holds the month breakdown that shows the individual budget items for current
  * and future months and total transactions for given categories for past months
- * all sorted by category type (income or expense) then sorted by
+ * all sorted by category type (income or expense), then meta category then category
  */
 class MonthBreakDown {
 	Map incomeBreakdown = [:]
@@ -42,5 +42,14 @@ class MonthBreakDown {
 			}
 			expenseBreakdown."${metaCategoryName}" << [it[1], it[2]]
 		}
+	}
+	
+	/**
+	 * @param month the 1 based month to retrieve the breakdown for
+	 * @param year the year to retrieve the breakdown for
+	 * @param actual a Boolean value to differentiate this constructor from the budgeted constructor
+	 */
+	public MonthBreakDown(Integer month,Integer year, Boolean actual){
+		
 	}
 }

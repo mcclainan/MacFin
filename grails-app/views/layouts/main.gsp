@@ -22,6 +22,32 @@
 			#maccontent{
 				margin: 1em 14.7em 0 15em;
 			}
+			
+		#dialogBox {
+		    background: none repeat scroll 0 0 #EFEFEF;
+		    border-color: #006192;
+		    border-style: outset;
+		    border-width: 0.5em;
+		    height: 20em;
+		    margin: 6em 1em 1em 24em;
+		    position: fixed;
+		    visibility: hidden;
+		    width: 40em;
+		    padding:1em;
+		    top:10em;
+		    z-index: 1;
+		}
+		#dialogBoxHead{
+			height: 11%;
+		}
+		#dialogBoxBody{
+		    overflow:scroll;
+			height: 77%;
+		}
+		#dialogBoxFooter{
+			height: 11%;
+	text-align: center;
+}
 		</style>
 		<script type="text/javascript">
 			function toggleDialogBoxVisibility(on,refresh){

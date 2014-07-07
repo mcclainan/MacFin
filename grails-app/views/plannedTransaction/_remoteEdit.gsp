@@ -46,7 +46,6 @@
 	</g:form>
 </div>
 <div id="dialogBoxFooter">
-	<br/>
-	<input type="button" onclick="toggleDialogBoxVisibility('off','${flash.refresh}')" toggle="on" value="done"/>
+	<input type="button" onclick="toggleDialogBoxVisibility('off','${flash.refresh}')" toggle="on" value="Cancel"/>
 </div>
 

@@ -28,5 +28,5 @@ create table year_beginning_resources as select * from mac_financial_admin.year_
 drop table budget_item;
 create table budget_item as select * from mac_financial_admin.budget_item;
 
---drop sequence hibernate_sequence;
---create sequence hibernate_sequence start with 9774;
+drop sequence hibernate_sequence;
+create sequence hibernate_sequence start with 13816;

@@ -9,12 +9,9 @@ class Account {
 	String active = "Y"
 	String cash
 	AssetLiability assetLiability
-	Bank bank
-	
-
 	
 	static hasMany = [transactions: Transaction]
-	static belongsTo = Transaction
+	static belongsTo = [bank:Bank]
 	
     static constraints = {
 		interestRate nullable : true

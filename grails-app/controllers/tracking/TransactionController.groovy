@@ -60,6 +60,7 @@ class TransactionController {
             '*' { respond transactionInstance, [status: CREATED] }
         }
     }
+	
 
     def edit(Transaction transactionInstance) {
         respond transactionInstance
@@ -557,6 +558,31 @@ class TransactionController {
 		render(view:"_reconTransactionList.gsp", model:[transactionInstanceList:transactions,selectList:true, bankRecord:bankRecord])
 	}
 	
+	@Transactional
+	def saveFromRecon() {
+		def transactionInstance = new Transaction(params)
+		def bankRecord = BankRecord.get(params.bankRecordId)
+		
+		if (transactionInstance == null) {
+			notFound()
+			return
+		}
+		
+		if (transactionInstance.hasErrors()) {
+			respond transactionInstance.errors, view:'create'
+				return
+		}
+		
+		transactionService.create(transactionInstance)
+		bankRecord.transaction = transaction
+		transactionInstance.save()
+		bankRecord.save()
+		
+		redirect action:"reconciliation",params:[year:transactionInstance.transactionDate.getAt(Calendar.YEAR),
+												  month:transactionInstance.transactionDate.getAt(Calendar.MONTH)+1,
+												 accountId:transactionInstance.account.id]
+	}
+	
 	def toggleAllAccounts(){
 		def message
 		if(!session.allAccounts){
@@ -581,7 +607,7 @@ class TransactionController {
 		transactionInstance.name = description
 		transactionInstance.account = bankRecord.account
 		
-		render(view:"_reconTransactionForm", model:[transactionInstance:transactionInstance, bankRecordId:bankRecord.id])
+		render(template:"reconTransactionForm", model:[transactionInstance:transactionInstance, bankRecordId:bankRecord.id])
 	}
 	
 	def verify(){

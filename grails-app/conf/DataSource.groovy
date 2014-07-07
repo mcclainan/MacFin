@@ -28,6 +28,7 @@ environments {
 			username = "MAC_FINANCIAL_TEST"
 			password = "TONY2505"
 			url = "jdbc:oracle:thin:@24.255.171.38:1521:XE"
+			dbcreate = 'update'
 			pooled = true
 			properties {
 			   maxActive = -1

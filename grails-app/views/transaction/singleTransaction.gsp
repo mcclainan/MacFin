@@ -27,7 +27,7 @@
 <g:javascript>
 			document.getElementById("transactionDate_day").focus()
 			
-				function populateForm(transactionId){
+			function populateForm(transactionId){
 				populateField("transactionDate_day",document.getElementById("date_day" + transactionId).value)
 				populateField("transactionDate_month",document.getElementById("date_month" + transactionId).value)
 				populateField("transactionDate_year",document.getElementById("date_year" + transactionId).value)
