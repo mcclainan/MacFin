@@ -9,6 +9,7 @@ import planning.YearBeginningResources
 class BudgetView {
 	
 	List<MonthTotal> yearOverview = []
+	MonthBreakDown monthBreakdown 
 	/**
 	 * @param params A map that must contain a month and year or else the month and year defaults to the current month and year
 	 */
@@ -28,6 +29,14 @@ class BudgetView {
 				yearOverview << monthTotal
 			}		
 					
+		}
+		
+		Date cutOffDate = new Date(date:1,month:month-1)
+		cutOffDate.set(year:year)
+		if(new Date().clearTime()>=cutOffDate.clearTime()){
+			monthBreakdown = new MonthBreakDown(month, year)
+		}else{
+			monthBreakdown = new MonthBreakDown(month, year,true)
 		}
 	}
 }

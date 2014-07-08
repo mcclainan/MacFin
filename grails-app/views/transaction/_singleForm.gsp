@@ -14,7 +14,7 @@
 		<g:message code="transaction.category.label" default="Category" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="category" name="category.id"  stlye="width:15.3em;" from="${category.Category.findAllByActive("Y",[sort:"name"])}" optionKey="id" required="" value="${transactionInstance?.category?.id}" class="many-to-one"/>
+	<g:select id="category" name="category.id" from="${category.Category.findAllByActive("Y",[sort:"name"])}" optionKey="id" required="" value="${transactionInstance?.category?.id}" class="category"/>
 
 </div>
 

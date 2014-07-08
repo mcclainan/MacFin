@@ -9,8 +9,8 @@
 			<h2>Tracking</h2>
 			<ul>
 				<li><g:link controller="transaction" action="singleTransaction">Transactions</g:link></li>
-				<li><g:link controller="account" action="list">Accounts</g:link></li>
-				<li><g:link controller="assetLiability" action="list">Assets/Liabilities</g:link>
+				<li><g:link controller="account">Accounts</g:link></li>
+				<li><g:link controller="assetLiability">Assets/Liabilities</g:link>
 				</li>
 			</ul>
 			<h2>Planning</h2>
@@ -29,9 +29,9 @@
 			</ul>
 			<h2>Records Maintenance</h2>
 			<ul>
-				<li><g:link controller="metaCategory" action="list">Meta Category</g:link>
+				<li><g:link controller="metaCategory">Meta Category</g:link>
 				</li>
-				<li><g:link controller="category" action="list">Category</g:link>
+				<li><g:link controller="category">Category</g:link>
 				</li>
 			</ul>
 		</div>
