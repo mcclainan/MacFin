@@ -574,7 +574,7 @@ class TransactionController {
 		}
 		
 		transactionService.create(transactionInstance)
-		bankRecord.transaction = transaction
+		bankRecord.transaction = transactionInstance
 		transactionInstance.save()
 		bankRecord.save()
 		
@@ -628,7 +628,12 @@ class TransactionController {
 			}
 			
 			if(totalAmount != bankRecordInstance.amount){
-				def addAmount = (bankRecordInstance.amount - totalAmount)/transactionList.size()
+				int multiplier = 1
+				if(totalAmount < 0){
+					multiplier = -1
+				}
+				def addAmount = (Math.abs(bankRecordInstance.amount) - Math.abs(totalAmount))/transactionList.size()
+				addAmount *= multiplier
 				transactionList.each {
 					Transaction oldTransaction = new Transaction()
 					bindData(oldTransaction,it.properties,['id','verson'])

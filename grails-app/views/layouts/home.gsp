@@ -15,8 +15,7 @@
 			</ul>
 			<h2>Planning</h2>
 			<ul>
-				<li><g:link controller="budgetItem" action="budgetView"
-						params="[staticBudget:'on']">Budget View</g:link></li>
+				<li><g:link controller="budgetItem" action="view">Budget View</g:link></li>
 				<li><g:link controller="budgetItem" action="create">New Budget</g:link>
 				</li>
 			</ul>

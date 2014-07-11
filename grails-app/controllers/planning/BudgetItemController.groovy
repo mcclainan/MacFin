@@ -6,6 +6,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import utilities.cashFlowCalendar.CashFlowCalendar
 import category.Category
+import planning.view.BudgetView
 
 @Transactional(readOnly = true)
 class BudgetItemController {  
@@ -19,9 +20,11 @@ class BudgetItemController {
 //		redirect(action:'view')
     }
 	
-	def view(Integer max){
-		params.max = Math.min(max ?: 10, 100)
-		respond BudgetItem.list(params), model:[budgetItemInstanceCount: BudgetItem.count()]
+	def view(){
+		def year = params.year?:new Date().format("yyyy").toInteger()
+		def month = params.month?:new Date().format("MM").toInteger()
+		def budgetView = new BudgetView(params)
+		[budgetView:budgetView]
 	}
 
     def show(BudgetItem budgetItemInstance) {

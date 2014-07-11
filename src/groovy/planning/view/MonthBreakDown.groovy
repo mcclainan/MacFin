@@ -18,7 +18,7 @@ class MonthBreakDown {
 	 * @return 
 	 * Creates a budgeted month breakdown from the planning package
 	 */
-	public MonthBreakdown(Integer month, Integer year){
+	public MonthBreakDown(Integer month, Integer year){
 		def query = "select m.name,c.name,b.amount " +
 				"from BudgetItem b, Category c, MetaCategory m " +
 				"where m.id = c.metaCategory and c.id = b.category " +
@@ -108,13 +108,16 @@ class MonthBreakDown {
 		params.excludedMetaCategories = ["UNTRACKED"]
 		params.type = ['E','I']
 		def untrackedBreakDown = Transaction.executeQuery(query,params)
-		def untrackedTotal = untrackedBreakDown.get[0][1]
-		
-		if(untrackedTotal > 0){
-			incomeBreakdown."UNTRACKED"<<['Untracked Income',untrackedTotal]	
-		}else if(untrackedTotal < 0){
-			expenseBreakdown."UNTRACKED"<<['Untracked Expense',untrackedTotal]
+		def untrackedTotal 
+		if(untrackedBreakDown){
+			untrackedTotal = untrackedBreakDown.get[0][1]
+			if(untrackedTotal > 0){
+				incomeBreakdown."UNTRACKED"=['Untracked Income',untrackedTotal]	
+			}else if(untrackedTotal < 0){
+				expenseBreakdown."UNTRACKED"=['Untracked Expense',untrackedTotal]
+			}
 		}
+		
 		
 	}
 }
