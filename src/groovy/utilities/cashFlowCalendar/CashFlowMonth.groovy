@@ -21,7 +21,7 @@ class CashFlowMonth {
 		def daysInFirstWeek = 7-startDay
 		Boolean firstIsLast = false
 		def offset = null
-		if(numberOfDays<=7){
+		if((numberOfDays+startDay)<=7){
 			daysInFirstWeek=numberOfDays
 			offset = startDay
 			firstIsLast=true

@@ -7,6 +7,8 @@ import grails.transaction.Transactional
 import java.text.DecimalFormat
 import java.util.List;
 import java.util.Map;
+import org.springframework.mobile.device.Device
+import org.springframework.mobile.device.LiteDeviceResolver;
 
 import utilities.Utilities
 import category.Category
@@ -16,7 +18,9 @@ class TransactionController {
 	
 	def transactionService
 	def transactionReconService
-
+	Device device
+	LiteDeviceResolver resolver = new LiteDeviceResolver()
+	
     static allowedMethods = [save: "POST"]
 
     def index(Integer max) {
@@ -24,8 +28,14 @@ class TransactionController {
     }
 
 	def singleTransaction(Integer max) {
-    	params.max = Math.min(max ?: 10, 100)
+		device = resolver.resolveDevice(request)
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.order = "desc"
+		
+		if(device.isMobile()){
+			render (view:"singleTransactionMobile",model:[transactionInstanceList:Transaction.listOrderByTransactionDate(params) ,transactionInstanceCount: Transaction.count(),transactionInstance:new Transaction(),mobile:true])
+			return
+		}
     	respond Transaction.listOrderByTransactionDate(params), model:[transactionInstanceCount: Transaction.count(),transactionInstance:new Transaction()]
     }
 

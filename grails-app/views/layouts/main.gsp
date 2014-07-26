@@ -71,7 +71,7 @@
 					<li class="first"><a class="home"
 						href="${createLink(uri: '/')}">Home</a></li>
 					<li><g:link controller="transaction">Tracking</g:link></li>
-					<li><g:link controller="budgetItem">Planning</g:link></li>
+					<li><g:link controller="budgetItem" action="view">Planning</g:link></li>
 					<li><g:link controller="report">Reports</g:link></li>
 					<li><g:link controller="category">Records Maintenance</g:link></li>
 				</ul>
@@ -95,3 +95,4 @@
 		<r:layoutResources />
 	</body>
 </html>
+

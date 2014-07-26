@@ -69,10 +69,10 @@
 			</g:if>
 			<div class="mainContainer" style="position:relative;">
 				<div class="budgetShow">
-					<g:message code="year.label"/>: ${budgetItemInstance?.year}<br/><br/>
-					<g:message code="month.label"/>: ${utilities.Months.values()[budgetItemInstance?.month-1].name}<br/><br/>
-					<g:message code="category.label"/>: ${budgetItemInstance?.category}<br/><br/>
-					<g:message code="amount.label"/>: <g:formatNumber number="${budgetItemInstance?.amount}" type="currency" currencyCode="USD" /> <br/><br/>
+					<span style="font-weight: bold;"><g:message code="year.label"/>:</span> ${budgetItemInstance?.year}<br/><br/>
+					<span style="font-weight: bold;"><g:message code="month.label"/>:</span> ${utilities.Months.values()[budgetItemInstance?.month-1].name}<br/><br/>
+					<span style="font-weight: bold;"><g:message code="category.label"/>:</span> ${budgetItemInstance?.category}<br/><br/>
+					<span style="font-weight: bold;"><g:message code="amount.label"/>:</span> <g:formatNumber number="${budgetItemInstance?.amount}" type="currency" currencyCode="USD" /> <br/><br/>
 					<a onclick="toggleElementVisibility('changeBudgetItem','visible')"><g:message code="budgetItem.change.message"/></a><br/><br/>
 					<g:form action="delete">
 						<fieldset class="buttons">

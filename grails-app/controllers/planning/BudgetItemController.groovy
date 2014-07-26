@@ -127,6 +127,15 @@ class BudgetItemController {
 		
 		redirect(action:'show', id:id)
 	}
+	
+	def showByCategoryMonthAndYear(Integer month, Integer year, String name){
+		def budgetItemInstance = BudgetItem.findWhere(month:month,year:year,category:Category.findByName(name))
+		if(!budgetItemInstance){
+			redirect(action:'view', params:[year:year,month:month])
+			return
+		}
+		redirect(action:'show', id:budgetItemInstance.id)
+	}
 
     protected void notFound() {
         request.withFormat {

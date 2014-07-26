@@ -21,6 +21,7 @@ class BootStrap {
 	def plannedTransaction
 	def category
 	def bank
+	def yearBeginningResources
 	
     def init = { servletContext ->
 		println "Initializing"
@@ -275,7 +276,33 @@ class BootStrap {
 		
 	}
 	def createYearBeginningResourcess(){
-		
+		println "Creating Year Beginning Cash Test Data"
+		def year = new Date().getAt(Calendar.YEAR)
+		yearBeginningResources = new YearBeginningResources(year: year, budgetedAmount: 0, actualAmount: 0)
+		if (yearBeginningResources.validate()){
+			yearBeginningResources.save(flush: true)
+		}else{
+			yearBeginningResources.errors.each{
+				println it
+			}
+		}
+
+		yearBeginningResources = new YearBeginningResources(year: year+1, budgetedAmount: 0, actualCash: 1000)
+		if (yearBeginningResources.validate()){
+			yearBeginningResources.save(flush: true)
+		}else{
+			yearBeginningResources.errors.each{
+				println it
+			}
+		}
+		yearBeginningResources = new YearBeginningResources(year: year+2, budgetedAmount: 0, actualAmount: 0)
+		if (yearBeginningResources.validate()){
+			yearBeginningResources.save(flush: true)
+		}else{
+			yearBeginningResources.errors.each{
+				println it
+			}
+		}
 	}
 	def createTransactions(){
 		println "Creating Transactions"

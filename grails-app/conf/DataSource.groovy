@@ -48,8 +48,8 @@ environments {
 			dialect = "org.hibernate.dialect.Oracle10gDialect"
 			username = "MAC_FINANCIAL_ADMIN"
 			password = "TONY2505"
-            url = "jdbc:oracle:thin:@24.255.171.38:1521:XE"	
-//            url = "jdbc:oracle:thin:@localhost:1521:XE"	
+//            url = "jdbc:oracle:thin:@24.255.171.38:1521:XE"	
+            url = "jdbc:oracle:thin:@localhost:1521:XE"	
             pooled = true
             properties {
                maxActive = -1

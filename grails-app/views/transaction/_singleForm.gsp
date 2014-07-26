@@ -14,7 +14,12 @@
 		<g:message code="transaction.category.label" default="Category" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="category" name="category.id" from="${category.Category.findAllByActive("Y",[sort:"name"])}" optionKey="id" required="" value="${transactionInstance?.category?.id}" class="category"/>
+	<g:if test="${mobile}">
+		<g:select id="category" name="category.id" from="${category.Category.findAllWhere(active:'Y',displayOnMobile:'Y',[sort:"name"])}" optionKey="id" required="" value="${transactionInstance?.category?.id}" class="category"/>
+	</g:if>
+	<g:else>
+		<g:select id="category" name="category.id" from="${category.Category.findAllByActive("Y",[sort:"name"])}" optionKey="id" required="" value="${transactionInstance?.category?.id}" class="category"/>
+	</g:else>
 
 </div>
 

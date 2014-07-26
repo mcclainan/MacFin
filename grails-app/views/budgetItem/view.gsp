@@ -35,7 +35,7 @@
 			<div style = "width:100%;height:60px;">
 			<h1 style = "margin-left: 10px; width:50%; float:left;">${application.monthNames[budgetView.month]} ${budgetView.year} Budget</h1>
 				<div style="float:right;margin:15px">
-					Year <g:select name="year" from="${[2011,2012,2013,2014,2015]}" value = "${year}"/> 
+					Year <g:select name="year" from="${[2011,2012,2013,2014,2015]}" value = "${budgetView.year}"/> 
 					Month <g:select name="month" from="${application.monthNames}" optionKey="key" optionValue="value" value = "${budgetView.month}"/>
 					<g:submitButton name="Refresh"/>
 				</div>
@@ -43,7 +43,7 @@
 			</div>
 			</g:form>
 			<div style = "margin : 10px; width:97.25% ;">
-				<div style="width:28em; float:left;border: solid;border-width: 10px; border-style: outset; padding:5px; margin-bottom: 10px">
+				<div style="width:30.5em; float:left;border: solid;border-width: 10px; border-style: outset; padding:5px; margin-bottom: 10px">
 					<h3 style="text-align: center;">Year Overview</h3><br/>
 					<table>
 						<thead>
@@ -91,7 +91,7 @@
 								<g:each in="${metaCategory.value}" var = "category">
 									<tr>
 										<td style = "width: 20em">
-											<g:link controller="budgetItem" action="showByCategoryMonthAndYear" params="[month:month,year:year,name:category[0]]" target="_blank">
+											<g:link controller="budgetItem" action="showByCategoryMonthAndYear" params="[month:budgetView.month,year:budgetView.year,name:category[0]]" target="_blank">
 												${category[0]}
 											</g:link>
 										</td>
@@ -111,7 +111,7 @@
 								<g:each in="${metaCategory.value}" var = "category">
 									<tr>
 										<td style = "width: 20em">
-											<g:link controller="budgetItem" action="showByCategoryMonthAndYear" params="[month:month,year:year,name:category[0]]" target="_blank">
+											<g:link controller="budgetItem" action="showByCategoryMonthAndYear" params="[month:budgetView.month,year:budgetView.year,name:category[0]]" target="_blank">
 												${category[0]}
 											</g:link>
 										</td>
