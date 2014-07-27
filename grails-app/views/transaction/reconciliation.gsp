@@ -21,6 +21,7 @@
 		</style>
 		<g:javascript library="prototype" />
 		<g:javascript>
+			
 			var transactionPicked = "false";
 			var bankRecordPicked = "false";
 			function showTransaction(date,category,amount,name,transactionId){

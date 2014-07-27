@@ -6,10 +6,14 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 		<g:javascript>
 			<g:if test="${dateLock == 'disabled'}">
-				document.getElementById("category.id").focus()
+				$(document).ready(function(){
+					$("#category.id").focus();
+				});
 			</g:if>
 			<g:else>
-				document.getElementById("transactionDate_day").focus()
+				$(document).ready(function(){
+					$("#transactionDate_day").focus();
+				});
 			</g:else>
 		</g:javascript>
 	</head>

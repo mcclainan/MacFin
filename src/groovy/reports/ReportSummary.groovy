@@ -1,0 +1,5 @@
+package reports
+
+class ReportSummary {
+
+}

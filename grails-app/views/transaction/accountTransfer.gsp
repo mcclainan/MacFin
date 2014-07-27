@@ -16,7 +16,9 @@
 	}
 </style>
 <g:javascript>
-			document.getElementById("transactionDate_day").focus()
+	$(document).ready(function(){
+		$("#transactionDate_day").focus();
+	});
 </g:javascript>
 </head>
 <body>

@@ -25,7 +25,9 @@
 <g:javascript src="dateSearchCriteria.js" />
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'search.css')}" type="text/css">
 <g:javascript>
-			document.getElementById("transactionDate_day").focus()
+			$(document).ready(function(){
+				$("#transactionDate_day").focus();
+			});
 			
 			function populateForm(transactionId){
 				populateField("transactionDate_day",document.getElementById("date_day" + transactionId).value)

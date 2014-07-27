@@ -15,4 +15,14 @@ class YearBeginningResources {
     static constraints = {
 		year blank: false, unique: true
     }
+	
+	def getActualTotal(){
+		def actualTotal = 0
+		actualTotal += actualCash
+		actualTotal += actualCreditCard
+		actualTotal += actualBenifits
+		actualTotal += actualOther
+		
+		return actualTotal
+	}
 }

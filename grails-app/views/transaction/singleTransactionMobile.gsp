@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="mainMobile">
 		<g:set var="entityName" value="${message(code: 'transaction.label', default: 'Transaction')}" />
 		<title>Single Transactions</title>
 		<style type="text/css">
