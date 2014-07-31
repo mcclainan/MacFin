@@ -105,7 +105,6 @@ class PlannedTransactionController {
 		date.set(year:dateElements[2].toInteger())
 		def plannedTransactionInstanceList = PlannedTransaction.findAllByPlannedTransactionDate(date.clearTime())
 		flash.refresh = flash.refresh?:false
-		
 		render(template:"remoteList", model:[plannedTransactionInstanceList:plannedTransactionInstanceList])
 	}
 	

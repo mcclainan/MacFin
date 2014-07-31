@@ -1,6 +1,9 @@
 <g:applyLayout name="main">
 <!DOCTYPE html>
 	<head>
+		<g:if test="${params.action != 'reconciliation'}">
+			<g:javascript library="jQuery"/>
+		</g:if>
 		<title><g:layoutTitle default="Grails"/></title>
 		<g:layoutHead/>
 	</head>

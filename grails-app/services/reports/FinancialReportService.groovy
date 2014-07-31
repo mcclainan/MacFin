@@ -57,4 +57,35 @@ class FinancialReportService {
 
 		return yearOverview
 	}
+	
+	Map getMonthBreakdown(Integer month, Integer year){
+		Sql sql = new groovy.sql.Sql(dataSource)
+		List tempBreakdown = []
+		Map incomeBreakdown = [:]
+		Map expenseBreakdown = [:]
+		def i = 0.0
+		sql.call("BEGIN get_month_break_down(?,?,?); END;",[month,year,Sql.resultSet(OracleTypes.CURSOR)]) {cursorResults ->
+			cursorResults.eachRow{result->
+				tempBreakdown << [result.getAt(0),result.getAt(1),result.getAt(2),result.getAt(3)]
+			}
+		}
+		
+		String currentMetaCategory = ""
+		tempBreakdown.each{
+			if(it[0].toString()=="I"){
+				if(currentMetaCategory != it[1].toString()){
+					incomeBreakdown."${it[1].toString()}" = []
+					currentMetaCategory = it[1].toString()
+				}
+				incomeBreakdown."${currentMetaCategory}" << [it[2].toString(), it[3].toDouble()]
+			}else{
+				if(currentMetaCategory != it[1].toString()){
+					expenseBreakdown."${it[1].toString()}" = []
+					currentMetaCategory = it[1].toString()
+				}
+				expenseBreakdown."${currentMetaCategory}" << [it[2].toString(), it[3].toDouble()]
+			}
+		}
+		[incomeBreakdown:incomeBreakdown,expenseBreakdown:expenseBreakdown]
+	}
 }

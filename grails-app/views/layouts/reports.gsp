@@ -9,7 +9,7 @@
 			<h2 style="margin-top: 0em">Financial Reports</h2>
 			<ul>
 				<li><g:link controller="report" action="index">Full Year Summary</g:link></li>
-				<li><g:link controller="report" action="financialMonth">Full Month</g:link></li>
+				<li><g:link controller="report" action="monthFinancial">Full Month</g:link></li>
 			</ul>
 			<h2 style="margin-top: 0em">Income/Expense Reports</h2>
 			<ul>

@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 		<g:layoutHead/>
 		<g:javascript library="application"/>		
-		<g:javascript library="jQuery"/>		
+				
 		<r:layoutResources />
 		<style type="text/css">
 			#maccontent{
