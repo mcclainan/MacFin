@@ -45,7 +45,7 @@
 		</g:each>
 		--%><g:each in = "${report}" var="monthSummary">
 			<tr>
-				<td>${application.monthNames[monthSummary.get(0)]}</td>
+				<td><g:link action="monthFinancial" params="[month:monthSummary.get(0),year:year]">${application.monthNames[monthSummary.get(0)]}</g:link></td>
 				<td><g:formatNumber number="${monthSummary.get(1)}" type="currency" currencyCode="USD"/></td>
 				<td><g:formatNumber number="${monthSummary.get(2)}" type="currency" currencyCode="USD"/></td>
 				<td><g:formatNumber number="${monthSummary.get(3)}" type="currency" currencyCode="USD"/></td>

@@ -71,7 +71,7 @@ class FinancialReportService {
 		}
 		
 		String currentMetaCategory = ""
-		tempBreakdown.each{
+		tempBreakdown?.each{
 			if(it[0].toString()=="I"){
 				if(currentMetaCategory != it[1].toString()){
 					incomeBreakdown."${it[1].toString()}" = []

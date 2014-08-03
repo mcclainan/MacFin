@@ -179,7 +179,7 @@
 	
 								<td><g:formatNumber
 										number="${fieldValue(bean: transactionInstance, field: "amount")}"
-										format="####.00" /></td>
+										format="##,###.00" /></td>
 							</tr>
 									<g:hiddenField name="tableField${transactionInstance.id}" id = "date_day${transactionInstance.id}" value = "${transactionInstance.transactionDate.format('dd').toInteger()}"/>
 				                	<g:hiddenField name="tableField${transactionInstance.id}" id = "date_month${transactionInstance.id}" value = "${transactionInstance.transactionDate.format('MM').toInteger()}"/>
