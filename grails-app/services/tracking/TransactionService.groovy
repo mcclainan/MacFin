@@ -69,9 +69,13 @@ class TransactionService {
 		def account = transaction.account
 		if(account.assetLiability){
 			AssetLiability al = account.assetLiability
-			al.value -= transaction.amount
+					al.value -= transaction.amount
 		}else{
-			account.balance += transaction.amount
+			if(transaction.category.cash == 'Y'){
+				account.balance += transaction.amount
+			}else{
+				account = Account.get("2295".toLong())
+			}
 		}
 	}
 

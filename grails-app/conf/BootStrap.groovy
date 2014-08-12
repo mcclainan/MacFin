@@ -163,11 +163,19 @@ class BootStrap {
 		def year = new Date().format('yyyy').toInteger()
 		def month = new Date().format('MM').toInteger()
 		for(int i=0;i<6;i++){
+			if(month>12){
+				month=1
+				year++
+			}
 			budgetItem = new BudgetItem(year:year,
 										month:month++,
 										amount:800,
 										category:category,
 										required:'Y')
+			budgetItem.validate()
+			budgetItem.errors?.each{
+				println it
+			}
 			budgetItem.save()
 			createPlannedTransactions(budgetItem)
 		}

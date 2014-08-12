@@ -18,9 +18,9 @@
 			}
 			.cashFlowCalendarShow{
 				font-size: 1.1em; 
-				margin-right:1.40em;
+				margin-right:14.4em;
 				width:39em;
-				float:left;
+				float:right;
 			}
 			.mainContainer{
 				width:100%;
@@ -95,6 +95,18 @@
 					<g:render template="/budgetItem/selectBudgetItem"/>
 				</div>
 			</div>
+			<div style="float:left; margin: 5em 0 0 -7em;">
+					<h2>Planned Transaction List</h2>
+					<ul>
+						<g:each in="${budgetItemInstance.plannedTransactions}" var="pt">
+							<li>
+								<g:link controller="plannedTransaction" action="show" id="${pt.id}" target="_blank">
+									Day: <g:formatDate date="${pt.plannedTransactionDate}" format="dd"/> Amount:<g:formatNumber number="${pt.amount}" type="currency" currencyCode="USD" />
+								</g:link>
+							</li>
+						</g:each>
+					</ul>
+				</div>
 			<div class="cashFlowCalendarShow">
 				<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
 					<g:render template="/budgetItem/calendar" model="${[cashFlowMonth:cashFlowMonth]}"/>

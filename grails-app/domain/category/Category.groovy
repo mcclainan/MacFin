@@ -14,6 +14,7 @@ class Category {
 	String displayOnMobile = "N"
 	Integer assetLiabilityAction
 	AssetLiability assetLiability
+	String cummulative = 'N'
 	
 	static belongsTo = [metaCategory : MetaCategory]
 	static hasMany = [budgetItems: BudgetItem, transactions: Transaction, plannedTransactions: PlannedTransaction]
@@ -30,7 +31,7 @@ class Category {
 		displayOnMobile nullable: true, blank: true, size:1..1, inList:["Y","N"]
 		assetLiability nullable: true
 		assetLiabilityAction nullable:true
-		
+		cummulative nullable:true, blank:true ,  inList : ["Y","N"]
 	}
 	
 	static mapping = {

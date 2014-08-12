@@ -13,7 +13,7 @@ class AssetLiabilityController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond AssetLiability.list(params), model:[assetLiabilityInstanceCount: AssetLiability.count()]
+        respond AssetLiability.findAllByActive('Y',[max:params.max,offset:params.offset]), model:[assetLiabilityInstanceCount: AssetLiability.countByActive('Y')]
     }
 
     def show(AssetLiability assetLiabilityInstance) {

@@ -70,6 +70,28 @@
 			</tr>
 		</g:each>
 	</table>
+	<h2 class="dashBoardHeading">Remaining Budget For Cumulative Items</h2>
+	<table style="margin: 0 3em; width: 59em;">
+		<tr>
+			<th>Category Name</th>
+			<th>Budgeted Amount Remaining</th>
+		</tr>
+		<g:each
+			in="${budgetRemaining}"
+			status="i" var="item">
+			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+	
+				<td style="text-align: center">
+					${item.categoryName}
+				</td>
+	
+				<td style="text-align: center">
+					<g:formatNumber number="${item.totalRemaining}" type="currency" currencyCode="USD"/> 
+				</td>
+	
+			</tr>
+		</g:each>
+	</table>
 	<h2  class="dashBoardHeading">Cash Flow Calendar</h2> <g:link controller="plannedTransaction" action="cashFlowCalendar">(view full calendar)</g:link>
 	<g:each in="${cashFlowCalendar.cashFlowMonthList}" var="cashFlowMonth">
 		<g:render template="/budgetItem/calendar" model="${[cashFlowMonth:cashFlowMonth] }"/>

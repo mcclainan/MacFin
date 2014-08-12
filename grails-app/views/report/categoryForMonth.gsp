@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 <meta name="layout" content="reports"/>
-<title>Insert title here</title>
 <g:javascript>
 	function displayNotes(id){
 		var newHtml = "<h2>Notes</h2><br/>"

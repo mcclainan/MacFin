@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 <!DOCTYPE html>
 	<head>
-		<title><g:layoutTitle default="Grails"/></title>
+		<title><g:layoutTitle default="Reports"/></title>
 		<g:layoutHead/>
 	</head>
 	<body>

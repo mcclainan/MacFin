@@ -30,6 +30,7 @@ class BudgetItem {
 		amount blank : false, min:new Double(0.0)
 		cash inList : ["Y","N"]
 		required blank:true ,  inList : ["Y","N"]
+		
 	}
 	
 	static namedQueries = {
