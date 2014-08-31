@@ -9,6 +9,7 @@ class Account {
 	String active = "Y"
 	String cash
 	AssetLiability assetLiability
+	String type
 	
 	static hasMany = [transactions: Transaction]
 	static belongsTo = [bank:Bank]
@@ -19,6 +20,7 @@ class Account {
 		cash  size : 1..1, inList : ["Y","N"]
 		assetLiability nullable: true
 		bank nullable:true
+		type inList:['bank','school','brokerage']
     }
 	
 	static namedQueries = {

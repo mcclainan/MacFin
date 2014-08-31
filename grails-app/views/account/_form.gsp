@@ -14,7 +14,7 @@
 		<g:message code="account.balance.label" default="Balance" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="balance"  value="${fieldValue(bean: accountInstance, field: 'balance')}" required=""/>
+	<g:field type="text" name="balance"  value="${fieldValue(bean: accountInstance, field: 'balance')}" required=""/>
 
 </div>
 
@@ -23,7 +23,7 @@
 		<g:message code="account.interestRate.label" default="Interest Rate" />
 		
 	</label>
-	<g:field name="interestRate" value="${fieldValue(bean: accountInstance, field: 'interestRate')}"/>
+	<g:field type="text" name="interestRate" value="${fieldValue(bean: accountInstance, field: 'interestRate')?:0}"/>
 
 </div>
 <g:if test="${params.action != "create" }">
@@ -41,6 +41,14 @@
 		
 	</label>
 	<g:select name="cash" from="${accountInstance.constraints.cash.inList}" value="${accountInstance?.cash}" valueMessagePrefix="account.cash" noSelection="['': '']"/>
+
+</div>
+<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'type', 'error')} ">
+	<label for="cash">
+		<g:message code="account.type.label" default="Type" />
+		
+	</label>
+	<g:select name="type" from="${accountInstance.constraints.type.inList}" value="${accountInstance?.type}" valueMessagePrefix="account.type" noSelection="['': '']"/>
 
 </div>
 <g:if test="${params.action != "create" }">

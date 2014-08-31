@@ -12,7 +12,7 @@ class AccountController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Account.list(params), model:[accountInstanceCount: Account.count()]
+        respond Account.findAllByActive('Y',params), model:[accountInstanceCount: Account.countByActive('Y')]
     }
 
     def show(Account accountInstance) {

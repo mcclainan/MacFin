@@ -84,7 +84,7 @@
 				</g:if>
 			
 				<g:if test="${accountInstance?.transactions}">
-				<li class="fieldcontain">
+				<li class="fieldcontain" style="overflow: scroll; max-height: 10em;">
 					<span id="transactions-label" class="property-label"><g:message code="account.transactions.label" default="Transactions" /></span>
 					
 						<g:each in="${accountInstance.transactions}" var="t">

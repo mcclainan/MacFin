@@ -79,9 +79,29 @@
 			</div>
 		</div>
 		<div id="sideBarLeft">
-			<h2 style="margin-top: 0em">Current Resources</h2>
+			<h2 style="margin-top: 0em">Bank Account(s)</h2>
 			<ul>
-				<g:each in="${Account.findAllByActiveAndCash('Y','Y')}" var="accountInstance">
+				<g:each in="${Account.findAllByActiveAndType('Y','bank')}" var="accountInstance">
+					<li>
+						${accountInstance.name} <br/><g:formatNumber
+							number="${accountInstance.balance}" type="currency"
+							currencyCode="USD" />
+					</li>
+				</g:each>
+			</ul>
+			<h2 style="margin-top: 0em">School Account(s)</h2>
+			<ul>
+				<g:each in="${Account.findAllByActiveAndType('Y','school')}" var="accountInstance">
+					<li>
+						${accountInstance.name} <br/><g:formatNumber
+							number="${accountInstance.balance}" type="currency"
+							currencyCode="USD" />
+					</li>
+				</g:each>
+			</ul>
+			<h2 style="margin-top: 0em">Brokerage Account(s)</h2>
+			<ul>
+				<g:each in="${Account.findAllByActiveAndType('Y','brokerage')}" var="accountInstance">
 					<li>
 						${accountInstance.name} <br/><g:formatNumber
 							number="${accountInstance.balance}" type="currency"
