@@ -7,6 +7,7 @@
 			value="${message(code: 'default.button.create.label', default: 'Create')}"
 			disabled="false" />
 	</fieldset>
+	<g:hiddenField name="verified" value="Y"/>
 	<g:hiddenField name="bankRecordId" value="${bankRecordId}"/>
 	<g:hiddenField name="recon" value="true"/>
 </g:form>

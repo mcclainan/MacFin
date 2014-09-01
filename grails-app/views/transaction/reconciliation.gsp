@@ -154,11 +154,11 @@
 			</div>
 			<div style="width:70em; padding-top:30px; height: 400px">
 				
-				<div id="transactions" style = "width:33em; height: 400px; overflow: scroll; float:left; margin-left: 1%;">
+				<div id="transactions" style = "width:30em; height: 400px; overflow: scroll; float:left; margin-left: 1%;">
 					<g:render template="reconTransactionList"/>
 				</div>
 				
-				<div style = "width:35em; height: 400px; overflow: scroll; float:right; margin-right:1%;">
+				<div style = "width:33em; height: 400px; overflow: scroll; float:right; margin-right:1%;">
 					<h3>Bank Records</h3>
 					<table>
 						<thead>
