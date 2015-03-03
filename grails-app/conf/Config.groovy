@@ -102,22 +102,73 @@ environments {
 }
 
 // log4j configuration
-log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+// app.logFile: defines the location of the application's rollingLog
+if (System.properties['catalina.base']) {
+	app.logFile = System.properties['catalina.base'] + "/logs/${appName}.log"
+} else {
+	app.logFile = "/tmp/${appName}.log"
+}
+log4j = {
+	appenders {
+		appender new org.apache.log4j.net.SyslogAppender(
+			name: 'systemLog',
+			threshold: org.apache.log4j.Level.WARN,
+			syslogHost: 'localhost',
+			facility: 'LOCAL0',
+			layout: pattern(conversionPattern: "[%d{ISO8601}] test : %-5p : %-40c{4} : %m%n")
+		)
+
+		appender new org.apache.log4j.RollingFileAppender(
+			name:'rollingLog',
+			threshold: org.apache.log4j.Level.INFO,
+			file: "${config.app.logFile}",
+			maxFileSize: '5MB',
+			maxBackupIndex: '5',
+			layout: pattern(conversionPattern: "[%d{ISO8601}] %-5p : %-40c{4} : %m%n")
+		)
+
+		appender new org.apache.log4j.ConsoleAppender(
+			name: 'stdout',
+			threshold: org.apache.log4j.Level.INFO,
+			target: 'System.out',
+			layout: pattern(conversionPattern: "[%d{ISO8601}] %-5p : %-40c{4} : %m%n")
+		)
+
+		// turns off the stacktrace log
+		'null' name: 'stacktrace'
+	}
+
+	error  'org.codehaus.groovy.grails.web.servlet',        // controllers
+		   'org.codehaus.groovy.grails.web.pages',          // GSP
+		   'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+		   'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+		   'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+		   'org.codehaus.groovy.grails.commons',            // core / classloading
+		   'org.codehaus.groovy.grails.plugins',            // plugins
+		   'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+		   'org.springframework',
+		   'org.hibernate',
+		   'net.sf.ehcache.hibernate'
+
+	warn   'org.mortbay.log'
+
+	root {
+		info 'rollingLog'
+	}
+
+	environments {
+		production {
+			root {
+				error 'rollingLog'
+				info 'rollingLog'
+			}
+		}
+
+		development {
+			root {
+				debug 'stdout'
+			}
+		}
+	}
 }

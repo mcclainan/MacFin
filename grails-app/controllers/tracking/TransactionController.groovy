@@ -31,14 +31,15 @@ class TransactionController {
 		device = resolver.resolveDevice(request)
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
 		params.order = "desc"
-		
+
+        def transactionInstance = new Transaction(transactionDate: session.transactionDate?:new Date(),account: session.account)
 		if(device.isMobile() ){
-			render (view:"singleTransactionMobile",model:[transactionInstanceList:Transaction.listOrderByTransactionDate(params) ,transactionInstanceCount: Transaction.count(),transactionInstance:new Transaction(),mobile:true])
+			render (view:"singleTransactionMobile",model:[transactionInstanceList:Transaction.listOrderByTransactionDate(params), transactionInstanceCount: Transaction.count(),transactionInstance:transactionInstance,mobile:true])
 			return
 		}
 
         def transaction = new Transaction()
-    	respond Transaction.listOrderByTransactionDate(params), model:[transactionInstanceCount: Transaction.count(),transactionInstance:new Transaction(transactionDate: session.transactionDate?:new Date())]
+    	respond Transaction.listOrderByTransactionDate(params), model:[transactionInstanceCount: Transaction.count(),transactionInstance:transactionInstance]
     }
 
     def show(Transaction transactionInstance) {
@@ -64,6 +65,7 @@ class TransactionController {
 		transactionService.create(transactionInstance) 
 		transactionInstance.save()
         session.transactionDate = transactionInstance.transactionDate
+        session.account = transactionInstance.account
 
 		request.withFormat {
             form multipartForm {
