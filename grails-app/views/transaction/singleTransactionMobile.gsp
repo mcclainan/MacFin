@@ -75,7 +75,7 @@
             </ul>
         </g:hasErrors>
 
-        <form class="c-form" action="#">
+        <g:form url="[resource:transactionInstance, action:'save']" class="c-form">
             <label for="transactionDate"><g:message code="transaction.transactionDate.label" default="Transaction Date" /></label>
             <g:datePicker name="transactionDate" precision="day"  value="${transactionInstance?.transactionDate}" />
             <br/>
@@ -101,7 +101,7 @@
             <g:actionSubmit id = "create" action="save" name="create" class="button green" value="${message(code: 'default.button.create.label', default: 'Create')}" disabled="false" />
             <br>
             <input type = "button" name="refreshForm" class="button green" value="Reset Form" onclick = "resetForm()"/>
-        </form>
+        </g:form>
 
     </article>
 </section>
