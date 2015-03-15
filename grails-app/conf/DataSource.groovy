@@ -17,8 +17,23 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            driverClassName = "oracle.jdbc.driver.OracleDriver"
+            dialect = "org.hibernate.dialect.Oracle10gDialect"
+            username = "MAC_FINANCIAL_ADMIN"
+            password = "!TMoancyf1"
+//            url = "jdbc:oracle:thin:@24.255.171.38:1521:XE"
+            url = "jdbc:oracle:thin:@localhost:1521:XE"
+            pooled = true
+            properties {
+                maxActive = 100
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+                validationQuery="SELECT 1 from dual"
+            }
         }
     }
     test {
