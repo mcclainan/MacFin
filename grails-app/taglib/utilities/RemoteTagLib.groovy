@@ -52,7 +52,7 @@ class RemoteTagLib {
 		def action = attrs.action
 		def updateDiv = attrs.updateDiv
 		def value = attrs.value?:action
-		out << "<input type=\"button\" value=\"${value}\" onclick=\"new Ajax.Updater('${updateDiv}','/MacFin/${controller}/${action}',{asynchronous:true,evalScripts:true,parameters:Form.serialize(this.form)});return false\">"
+		out << "<input type=\"button\" value=\"${value}\" onclick=\"new Ajax.Updater('${updateDiv}','/${grails.util.Metadata.current.getApplicationName()}/${controller}/${action}',{asynchronous:true,evalScripts:true,parameters:Form.serialize(this.form)});return false\">"
 	}
 	
 }
